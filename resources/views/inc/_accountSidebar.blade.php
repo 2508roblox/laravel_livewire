@@ -15,10 +15,12 @@
                     <!-- Content -->
                     <div class="js-scrollbar u-sidebar__body">
                         <div class="u-sidebar__content u-header-sidebar__content">
-                            <form class="js-validate">
+
                                 <!-- Login -->
                                 <div id="login" data-target-group="idForm">
                                     <!-- Title -->
+                                    <form method="POST" action="{{route('login.post')}}" class="js-validate">
+                                        @csrf
                                     <header class="text-center mb-7">
                                         <h2 class="h4 mb-0">Welcome Back!</h2>
                                         <p>Login to manage your account.</p>
@@ -37,6 +39,9 @@
                                                 </div>
                                                 <input type="email" class="form-control" name="email" id="signinEmail" placeholder="Email" aria-label="Email" aria-describedby="signinEmailLabel" required data-msg="Please enter a valid email address." data-error-class="u-has-error" data-success-class="u-has-success">
                                             </div>
+                                            @error('email')
+                                            <p  style="color: red; margin-bottom: 0px"> {{$message}}</p>
+                                         @enderror
                                         </div>
                                     </div>
                                     <!-- End Form Group -->
@@ -54,6 +59,9 @@
                                                 <input type="password" class="form-control" name="password" id="signinPassword" placeholder="Password" aria-label="Password" aria-describedby="signinPasswordLabel" required data-msg="Your password is invalid. Please try again." data-error-class="u-has-error"
                                                     data-success-class="u-has-success">
                                             </div>
+                                            @error('password')
+                                            <p  style="color: red; margin-bottom: 0px"> {{$message}}</p>
+                                         @enderror
                                         </div>
                                     </div>
                                     <!-- End Form Group -->
@@ -61,7 +69,9 @@
                                     <div class="d-flex justify-content-end mb-4">
                                         <a class="js-animation-link small link-muted" href="javascript:;" data-target="#forgotPassword" data-link-group="idForm" data-animation-in="slideInUp">Forgot Password?</a>
                                     </div>
-
+                                    @error('message')
+                                    <p  style="color: red; margin-bottom: 0px"> {{$message}}</p>
+                                 @enderror
                                     <div class="mb-2">
                                         <button type="submit" class="btn btn-block btn-sm btn-primary transition-3d-hover">Login</button>
                                     </div>
@@ -88,11 +98,13 @@
                                             </a>
                                     </div>
                                     <!-- End Login Buttons -->
-                                </div>
-
+                                 </form>
+                        </div>
                                 <!-- Signup -->
                                 <div id="signup" style="display: none; opacity: 0;" data-target-group="idForm">
                                     <!-- Title -->
+                                    <form method="POST" action="{{route('register.post')}}" class="js-validate">
+                                        @csrf
                                     <header class="text-center mb-7">
                                         <h2 class="h4 mb-0">Welcome to Electro.</h2>
                                         <p>Fill out the form to get started.</p>
@@ -100,6 +112,19 @@
                                     <!-- End Title -->
 
                                     <!-- Form Group -->
+                                    <div class="form-group">
+                                        <div class="js-form-message js-focus-state">
+                                            <label class="sr-only" for="signupName">Name</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="signupEmailLabel">
+                                                            <span class="fas fa-user"></span>
+                                                    </span>
+                                                </div>
+                                                <input type="text" class="form-control" name="name" id="signupName" placeholder="Username" aria-label="Name" aria-describedby="signupEmailLabel" required data-msg="Please enter a valid user name." data-error-class="u-has-error" data-success-class="u-has-success">
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <div class="js-form-message js-focus-state">
                                             <label class="sr-only" for="signupEmail">Email</label>
@@ -110,7 +135,11 @@
                                                     </span>
                                                 </div>
                                                 <input type="email" class="form-control" name="email" id="signupEmail" placeholder="Email" aria-label="Email" aria-describedby="signupEmailLabel" required data-msg="Please enter a valid email address." data-error-class="u-has-error" data-success-class="u-has-success">
+
                                             </div>
+                                            @error('email')
+                                           <p  style="color: red; margin-bottom: 0px"> {{$message}}</p>
+                                        @enderror
                                         </div>
                                     </div>
                                     <!-- End Input -->
@@ -128,6 +157,9 @@
                                                 <input type="password" class="form-control" name="password" id="signupPassword" placeholder="Password" aria-label="Password" aria-describedby="signupPasswordLabel" required data-msg="Your password is invalid. Please try again." data-error-class="u-has-error"
                                                     data-success-class="u-has-success">
                                             </div>
+                                            @error('password')
+                                            <p  style="color: red; margin-bottom: 0px"> {{$message}}</p>
+                                         @enderror
                                         </div>
                                     </div>
                                     <!-- End Input -->
@@ -175,7 +207,8 @@
                                             </a>
                                     </div>
                                     <!-- End Login Buttons -->
-                                </div>
+                                </form>
+                             </div>
                                 <!-- End Signup -->
 
                                 <!-- Forgot Password -->
@@ -214,7 +247,7 @@
                                     </div>
                                 </div>
                                 <!-- End Forgot Password -->
-                            </form>
+
                         </div>
                     </div>
                     <!-- End Content -->
@@ -222,4 +255,5 @@
             </div>
         </div>
     </aside>
+ 
     <!-- End Account Sidebar Navigation -->

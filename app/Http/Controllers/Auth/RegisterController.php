@@ -2,17 +2,31 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use Auth;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
 
 class RegisterController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index( )
     {
-        //
+       return view('auth.auth');
+    }
+    public function register(Request $request, User $user)
+    {
+        $formFields = $request->validate([
+            'name' => 'required',
+            'email' =>  ['required', 'email', Rule::unique('users', 'email')],
+            'password' => 'required'
+        ]);
+        $user = User::create($formFields);
+        Auth::login($user);
+      return   redirect('/')->with('message', 'welcome');
     }
 
     /**

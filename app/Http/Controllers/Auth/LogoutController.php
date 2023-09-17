@@ -10,9 +10,14 @@ class LogoutController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function logout(Request $request)
     {
-        //
+        auth()->logout();
+
+    $request->session()->invalidate();
+
+    $request->session()->regenerateToken();
+    return redirect('/auth/register');
     }
 
     /**

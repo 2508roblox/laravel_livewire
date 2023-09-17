@@ -2,25 +2,44 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function login(Request $request)
     {
-        //
+        $credentials = $request->validate([
+
+            'email' =>  'required',
+            'password' => 'required'
+        ]);
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            if (Auth::user()->role_as == '1') {
+                return redirect('/admin/dashboard') ;
+               }else {
+                return redirect('/') ;
+               }
+
+        }
+        return back()->withErrors([
+            'message' => 'Email or password is incorrect',
+        ])->onlyInput('email');
+
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function showLoginForm()
     {
-        //
+        return view('auth.auth');
+
     }
 
     /**
