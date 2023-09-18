@@ -25,7 +25,7 @@
                                 class="sa-nav__menu sa-nav__menu--sub" data-sa-collapse-content="">
                                 <li class="sa-nav__menu-item"><a href="app-products-list.html" class="sa-nav__link"><span class="sa-nav__menu-item-padding"></span><span class="sa-nav__title">Products List</span></a></li>
                                 <li class="sa-nav__menu-item"><a href="app-product.html" class="sa-nav__link"><span class="sa-nav__menu-item-padding"></span><span class="sa-nav__title">Product</span></a></li>
-                                <li class="sa-nav__menu-item"><a href="app-categories-list.html" class="sa-nav__link"><span class="sa-nav__menu-item-padding"></span><span class="sa-nav__title">Categories List</span></a></li>
+                                <li class="sa-nav__menu-item"><a href="{{route('admin.category.list')}}" class="sa-nav__link"><span class="sa-nav__menu-item-padding"></span><span class="sa-nav__title">Categories List</span></a></li>
                                 <li class="sa-nav__menu-item"><a href="app-category.html" class="sa-nav__link"><span class="sa-nav__menu-item-padding"></span><span class="sa-nav__title">Category</span></a></li>
                     </ul>
                 </li>

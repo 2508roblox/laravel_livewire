@@ -36,7 +36,7 @@ class LoginController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function showLoginForm()
+    public function index()
     {
         return view('auth.auth');
 
