@@ -55,6 +55,7 @@
     </div>
     <!-- sa-app / end -->
     <!-- scripts -->
+
     <script src="{{asset('admin/vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('admin/vendor/feather-icons/feather.min.js')}}"></script>
     <script src="{{asset('admin/vendor/simplebar/simplebar.min.js')}}"></script>

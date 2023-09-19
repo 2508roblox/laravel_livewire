@@ -1,9 +1,11 @@
 <?php
 
+use App\Livewire\Admin\Brand\Index;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -39,6 +41,24 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/category/{id}/edit', 'update')->name('admin.category.update');
         Route::delete('/category/{id}', 'destroy')->name('admin.category.delete');
     });
+
+    Route::controller(BrandController::class)->group(function() {
+        Route::get('/brand', 'index')->name('admin.brand.list');
+        Route::get('/brand/create', 'create')->name('admin.brand.create');
+        Route::post('/category/create', 'store')->name('admin.brand.store');
+        Route::get('/brand/{id}/edit', 'edit')->name('admin.brand.edit');
+        Route::put('/category/{id}/edit', 'update')->name('admin.brand.update');
+        Route::delete('/brand/{id}', 'destroy')->name('admin.brand.delete');
+    });
+
+    // Route::controller()->group(function() {
+    //     Route::get('/brand')->name('admin.brand.list');
+    //     Route::get('/category/create', 'create')->name('admin.category.create');
+    //     Route::post('/category/create', 'store')->name('admin.category.store');
+    //     Route::get('/category/{id}/edit', 'edit')->name('admin.category.edit');
+    //     Route::post('/category/{id}/edit', 'update')->name('admin.category.update');
+    //     Route::delete('/category/{id}', 'destroy')->name('admin.category.delete');
+    // });
 });
 Route::get('/', [HomeController::class, 'index']);
 Route::prefix('shop')->group(function() {
