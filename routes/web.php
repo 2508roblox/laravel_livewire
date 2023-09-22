@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ColorController;
@@ -108,7 +109,10 @@ Route::group(['prefix' => 'admin'], function () {
     //     Route::delete('/category/{id}', 'destroy')->name('admin.category.delete');
     // });
 });
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [FrontendController::class, 'index']);
+
+
+
 Route::prefix('shop')->group(function() {
     Route::controller(ShopController::class)->group(function() {
         Route::get('/', 'index');

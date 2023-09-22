@@ -6,6 +6,20 @@
     <meta charSet="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <link rel="stylesheet" href="../../assets/vendor/font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../../assets/css/font-electro.css">
+
+    <link rel="stylesheet" href="../../assets/vendor/animate.css/animate.min.css">
+    <link rel="stylesheet" href="../../assets/vendor/hs-megamenu/src/hs.megamenu.css">
+    <link rel="stylesheet" href="../../assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" href="../../assets/vendor/fancybox/jquery.fancybox.css">
+    <link rel="stylesheet" href="../../assets/vendor/slick-carousel/slick/slick.css"> 
+    <link rel="stylesheet" href="../../assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
+
+
+
+
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="format-detection" content="telephone=no" />
     <title>Stroyka Admin - eCommerce Dashboard Template</title>
@@ -24,7 +38,8 @@
     <link rel="stylesheet" href="{{asset('admin/vendor/nouislider/nouislider.min.css')}}" />
     <link rel="stylesheet" href="{{asset('admin/vendor/fullcalendar/main.min.css')}}" />
     <link rel="stylesheet" href="{{asset('admin/css/style.css')}}"   />
-
+    {{-- slider --}}
+    <link rel="stylesheet" href=" {{asset('admin/vendor/slick-carousel/slick/slick.css')}} ">
     {{--  ckeditor --}}
     <script  src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-97489509-8')}}"></script>

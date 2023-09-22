@@ -2,16 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Slider;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class FrontendController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-       return view('home');
+        $sliders = Slider::all();
+        $categories = Category::all()->where('stauts', '=', 'published');
+        $number  = [
+            '1' => 'one',
+            '2' => 'two',
+            '3' => 'three',
+            '4' => 'four',
+            '5' => 'five',
+            '6' => 'six',
+        ];
+        return view('home', compact('sliders', 'number', 'categories'));
     }
 
     /**
