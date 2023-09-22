@@ -5,7 +5,7 @@
 <head>
     <meta charSet="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-   
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="format-detection" content="telephone=no" />
     <title>Stroyka Admin - eCommerce Dashboard Template</title>
@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="{{asset('admin/vendor/nouislider/nouislider.min.css')}}" />
     <link rel="stylesheet" href="{{asset('admin/vendor/fullcalendar/main.min.css')}}" />
     <link rel="stylesheet" href="{{asset('admin/css/style.css')}}"   />
+
+    {{--  ckeditor --}}
+    <script  src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-97489509-8')}}"></script>
     <script>
         window.dataLayer = window.dataLayer || [];

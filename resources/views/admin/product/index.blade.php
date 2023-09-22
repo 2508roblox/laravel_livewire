@@ -357,7 +357,7 @@
                                                     <a href="{{route('admin.product.create')}}" class="me-4">
                                                         <div
                                                             class="sa-symbol sa-symbol--shape--rounded sa-symbol--size--lg">
-                                                            <img src="images/products/product-1-40x40.jpg" width="40"
+                                                            <img src="{{ $product->image ? asset('storage/' . $product->image) : 'images/products/product-1-40x40.jpg'}} " width="40"
                                                                 height="40" alt="" />
                                                         </div>
                                                     </a>
@@ -379,11 +379,12 @@
                                             <td><a href="app-category.html" class="text-reset">
                                                 {{$product->category_name}}</a></td>
                                             <td>
-                                                @if ($product->quantity != '0')
+
+                                                @if ($product->total_quantity != null)
                                                     <div class="badge badge-sa-success">
 
 
-                                                        {{ $product->quantity }} In Stock</div>
+                                                        {{ $product->total_quantity }} In Stock</div>
                                                 @else
                                                     <div class="badge badge-sa-danger">
 

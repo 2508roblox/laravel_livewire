@@ -20,9 +20,16 @@ class ProductController extends Controller
     public function index(Product $product)
     {
 
-        $products = DB::table('products')->join('categories', 'products.category_id', '=', 'categories.id')
-        ->select('*',  'categories.name as category_name', 'products.id as product_id', 'products.name as product_name',)
+
+        $products = DB::table('products')
+        ->join('categories', 'products.category_id', '=', 'categories.id')
+        ->leftJoin('product_colors', 'products.id', '=', 'product_colors.product_id')
+        ->leftJoin('product_images', 'products.id', '=', 'product_images.product_id')
+        ->select('products.id as product_id', 'products.name as product_name', 'categories.name as category_name', DB::raw('SUM(product_colors.quantity) as total_quantity'), 'products.price as price', 'products.id as id', 'product_images.image')
+        ->groupBy('products.id', 'products.name', 'categories.name', 'products.price', 'products.id', 'product_images.image')
         ->get();
+
+
        return view('admin.product.index', compact('products'));
     }
 
@@ -110,15 +117,16 @@ class ProductController extends Controller
         $categories = Category::all();
         $product = Product::find($id);
         $images = $product->productImages()->get();
-        $colors_quantity = DB::table('product_colors')
-        ->where('product_id', '=', $id)
-        ->get();
 
         $colors_quantity =  DB::table('product_colors')->join('colors', 'product_colors.color_id', '=', 'colors.id')
         ->select('*',  'colors.name as colors_name', 'product_colors.id as product_colors_id' )
+        ->where('product_colors.product_id', '=', $id)
         ->get();
-
-        $colors = Color::all();
+        //whereDoesntHave return all This Model which is not existing in relationsip table
+        //default => all in relationsip table
+        $colors = Color::whereDoesntHave('products', function ($query) use ($product) {
+            $query->where('product_id', $product->id);
+        })->get();
         return view('admin.product.edit', compact('product', 'categories', 'images', 'colors_quantity', 'colors'));
     }
 
@@ -152,6 +160,18 @@ class ProductController extends Controller
         $product = Product::find($id);
        $product->update($validateData);
 
+
+if ($request->colors ?? false) {
+    foreach ($request->colors as $key => $value) {
+
+        $product->productColor()->create([
+         'color_id' => $key,
+         'quantity' => $request->quantities[$key]
+
+        ]);
+
+ }
+}
 
      // product_imgs
      if ($request->hasFile('images')) {

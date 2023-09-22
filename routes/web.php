@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Product;
+use App\Models\ProductColor;
 use App\Livewire\Admin\Brand\Index;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -9,6 +11,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\ProductImageController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -78,12 +81,21 @@ Route::group(['prefix' => 'admin'], function () {
 
     });
     Route::controller(ProductColorController::class)->group(function() {
-        Route::get('/productcolor', 'index')->name('admin.color.list');
+        Route::get('/productcolor', 'index')->name('admin.p.color.list');
         Route::get('/productcolor/create', 'create')->name('admin.p.color.create');
         Route::post('/productcolor/create', 'store')->name('admin.p.color.store');
         Route::get('/productcolor/{id}/edit', 'edit')->name('admin.p.color.edit');
         Route::post('/productcolor/{id}/edit', 'update')->name('admin.p.color.update');
         Route::delete('/productcolor/{id}', 'destroy')->name('admin.p.color.delete');
+
+    });
+    Route::controller(SliderController::class)->group(function() {
+        Route::get('/slider', 'index')->name('admin.slider.list');
+        Route::get('/slider/create', 'create')->name('admin.slider.create');
+        Route::post('/slider/create', 'store')->name('admin.slider.store');
+        Route::get('/slider/{id}/edit', 'edit')->name('admin.slider.edit');
+        Route::post('/slider/{id}/edit', 'update')->name('admin.slider.update');
+        Route::delete('/slider/{id}', 'destroy')->name('admin.slider.delete');
 
     });
 
@@ -104,8 +116,7 @@ Route::prefix('shop')->group(function() {
 });
 
 Route::post('/update-pcolor',   function ( ) {
-    // Xử lý dữ liệu của form con ở đây
-    // request()->qty . request()->id
+
    $id = request()->id;
    $qty = request()->qty;
 
@@ -113,10 +124,21 @@ $data = [
     'id' => $id,
     'qty' => $qty
 ];
+    $pcolor = ProductColor::find($id);
+    $pcolor->update([
+        'quantity' => $qty
+    ]);
 
-       return response()->json($data, 200)  ;
+       return response()->json("Product Color Updated!", 200)  ;
+}
+);
+Route::delete('/delete-pcolor',   function ( ) {
+   $id = request()->id;
+    ProductColor::destroy($id);
+
+       return response()->json("Product Delete Updated!", 200)  ;
 }
 );
 
-// FormController
+
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Color;
 use App\Models\ProductColor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,4 +34,8 @@ class Product extends Model
   public function productColor () {
     return $this->hasMany(ProductColor::class, 'product_id', 'id');
   }
+  public function getExistColors () {
+    return $this->belongsToMany(Color::class, 'product_colors');
+  }
+
 }

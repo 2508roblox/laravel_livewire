@@ -42,7 +42,7 @@
                                             <div class="mb-4"><label for="form-product/name"
                                                     class="form-label">Name</label><input name="name" type="text"
                                                     class="form-control" id="form-product/name"
-                                                    value="Brandix Screwdriver SCREW150" /></div>
+                                                    value="{{$product->name}}" /></div>
                                             <div class="mb-4"><label for="form-product/slug"
                                                     class="form-label">Slug</label>
                                                 <div class="input-group input-group--sa-slug"><span class="input-group-text"
@@ -50,13 +50,25 @@
                                                         name="slug" type="text" class="form-control"
                                                         id="form-product/slug"
                                                         aria-describedby="form-product/slug-addon form-product/slug-help"
-                                                        value="brandix-screwdriver-screw150" /></div>
+                                                        value=" {{$product->slug}}" /></div>
                                                 <div id="form-product/slug-help" class="form-text">Unique human-readable
                                                     product identifier. No longer than 255 characters.</div>
                                             </div>
                                             <div class="mb-4"><label for="form-product/description"
                                                     class="form-label">Description</label>
-                                                <textarea name="description" id="form-product/description" class="sa-quill-control form-control" rows="8">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ornare, mi in ornare elementum, libero nibh lacinia urna, quis convallis lorem erat at purus. Maecenas eu varius nisi.</textarea>
+                                             
+                                                <textarea  name="description" rows="" cols="80" required>
+                                                    {{$product->description}}
+                                                </textarea>
+                                              <script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
+                                               <script>
+
+
+                                                   CKEDITOR.replace('description');
+                                               </script>
+
+
+
                                             </div>
                                             <div><label for="form-product/short-description" class="form-label">Short
                                                     description</label>
@@ -137,7 +149,7 @@
                                             @forelse ($colors_quantity as $color)
 
 
-                                                    <div class="flex-row d-flex gap-3 p-5">
+                                                    <div class="flex-row d-flex gap-3 p-5"   id="product_color_{{$color->product_colors_id}}">
                                                         <div class="rounded"
                                                             style="background-color: #{{ $color->code }}; width: 100px; height: 50px">
                                                         </div>
@@ -148,7 +160,7 @@
                                                             <button value="{{ $color->product_colors_id }}"
                                                                 type="submit" class="update_color_qty btn btn-primary"
                                                                 onclick="submitChildForm(event)">Update</button>
-                                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                                            <button value="{{ $color->product_colors_id }}" type="submit" onclick="deleteChildForm(event)" class="btn btn-danger">Delete</button>
                                                         </div>
                                                     </div>
 
@@ -352,6 +364,7 @@
         });
 
         function submitChildForm(event) {
+
             event.preventDefault(); // Ngăn chặn hành vi gửi mặc định của form cha
 
             // Sử dụng Ajax để gửi form con
@@ -368,8 +381,32 @@
                     "qty":  qty
                 },
                 success: function(response) {
-                    console.log(JSON.parse(response))
+                    console.log(response)
                     // $('#p_c_q').val()
+                },
+                error: function(xhr) {
+                    // Xử lý lỗi nếu có
+                }
+            });
+        }
+        function deleteChildForm(event) {
+            $('#product_color_' + event.target.value ).remove()
+            event.preventDefault(); // Ngăn chặn hành vi gửi mặc định của form cha
+
+            // Sử dụng Ajax để gửi form con
+           var id =  event.target.value
+            $.ajax({
+                url: '/delete-pcolor',
+
+                type: 'DELETE',
+                datatype: 'jsonp',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "id": id,
+
+                },
+                success: function(response) {
+                    location.reload();
                 },
                 error: function(xhr) {
                     // Xử lý lỗi nếu có

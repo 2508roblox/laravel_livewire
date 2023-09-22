@@ -54,7 +54,20 @@
                                             </div>
                                             <div class="mb-4"><label for="form-product/description"
                                                     class="form-label">Description</label>
-                                                <textarea  name="description" id="form-product/description" class="sa-quill-control form-control" rows="8">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ornare, mi in ornare elementum, libero nibh lacinia urna, quis convallis lorem erat at purus. Maecenas eu varius nisi.</textarea>
+
+                                                    <textarea  name="description" rows="" cols="80" required>
+                                                         
+                                                    </textarea>
+                                                  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
+                                                   <script>
+
+
+                                                       CKEDITOR.replace('description');
+                                                   </script>
+
+
+
+
                                             </div>
                                             <div><label for="form-product/short-description" class="form-label">Short
                                                     description</label>

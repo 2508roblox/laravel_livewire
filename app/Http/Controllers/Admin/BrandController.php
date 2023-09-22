@@ -36,7 +36,7 @@ class BrandController extends Controller
             'status' => 'nullable',
         ]);
 
-        $validatedData['status'] = $validatedData['status'] == 'published' ? '1' : '0';
+        $validatedData['status'] = $validcatedData['status'] == 'published' ? '1' : '0';
         Brand::create($validatedData);
         return redirect('admin/brand')->with('message','brand has been created successfully!');
     }
