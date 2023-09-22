@@ -5,6 +5,7 @@
 <head>
     <meta charSet="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+{{--  --}}
 
     <link rel="stylesheet" href="../../assets/vendor/font-awesome/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="../../assets/css/font-electro.css">
@@ -13,10 +14,11 @@
     <link rel="stylesheet" href="../../assets/vendor/hs-megamenu/src/hs.megamenu.css">
     <link rel="stylesheet" href="../../assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
     <link rel="stylesheet" href="../../assets/vendor/fancybox/jquery.fancybox.css">
-    <link rel="stylesheet" href="../../assets/vendor/slick-carousel/slick/slick.css"> 
+    <link rel="stylesheet" href="../../assets/vendor/slick-carousel/slick/slick.css">
     <link rel="stylesheet" href="../../assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
 
 
+{{--  --}}
 
 
 

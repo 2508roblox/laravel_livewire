@@ -14,7 +14,7 @@ class FrontendController extends Controller
     public function index()
     {
         $sliders = Slider::all();
-        $categories = Category::all()->where('stauts', '=', 'published');
+        $categories = Category::all()->where('status', '=', 'published');
         $number  = [
             '1' => 'one',
             '2' => 'two',

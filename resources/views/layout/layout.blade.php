@@ -32,7 +32,7 @@
 </head>
 
 <body>
-     
+
     @include('inc._topbar');
     @yield('content');
 
