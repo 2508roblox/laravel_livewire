@@ -1,9 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr" data-scompiler-id="0">
 
 <head>
     <meta charSet="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+   
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="format-detection" content="telephone=no" />
     <title>Stroyka Admin - eCommerce Dashboard Template</title>
     <!-- icon -->
@@ -32,6 +35,7 @@
 
         gtag('config', 'UA-97489509-8');
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -40,12 +44,7 @@
   @yield('content')
     <!-- sa-app__body / end -->
     <!-- sa-app__footer -->
-    <div class="sa-app__footer d-block d-md-flex">
-        <!-- copyright -->Stroyka Admin — eCommerce Dashboard Template © 2021
-        <div class="m-auto"></div>
-        <div>Powered by HTML — Design by <a href="https://themeforest.net/user/kos9/portfolio">Kos</a></div>
-        <!-- copyright / end -->
-    </div>
+
     <!-- sa-app__footer / end -->
     </div>
     <!-- sa-app__content / end -->

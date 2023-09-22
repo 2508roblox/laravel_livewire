@@ -5,12 +5,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ShopController;
-use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\ProductImageController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProductColorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,10 +49,42 @@ Route::group(['prefix' => 'admin'], function () {
     Route::controller(BrandController::class)->group(function() {
         Route::get('/brand', 'index')->name('admin.brand.list');
         Route::get('/brand/create', 'create')->name('admin.brand.create');
-        Route::post('/category/create', 'store')->name('admin.brand.store');
         Route::get('/brand/{id}/edit', 'edit')->name('admin.brand.edit');
-        Route::put('/category/{id}/edit', 'update')->name('admin.brand.update');
+        Route::put('/brand/{id}/edit', 'update')->name('admin.brand.update');
         Route::delete('/brand/{id}', 'destroy')->name('admin.brand.delete');
+    });
+    Route::controller(ProductController::class)->group(function() {
+        Route::get('/product', 'index')->name('admin.product.list');
+        Route::get('/product/create', 'create')->name('admin.product.create');
+        Route::post('/product/create', 'store')->name('admin.product.store');
+        Route::get('/product/{id}/edit', 'edit')->name('admin.product.edit');
+        Route::put('/product/{id}/edit', 'update')->name('admin.product.update');
+        Route::delete('/product/{id}', 'destroy')->name('admin.product.delete');
+
+    });
+    Route::controller(ProductImageController::class)->group(function() {
+
+        Route::get('/images/{id}', 'destroy')->name('admin.images.delete');
+
+    });
+//CRUD Color
+    Route::controller(ColorController::class)->group(function() {
+        Route::get('/color', 'index')->name('admin.color.list');
+        Route::get('/color/create', 'create')->name('admin.color.create');
+        Route::post('/color/create', 'store')->name('admin.color.store');
+        Route::get('/color/{id}/edit', 'edit')->name('admin.color.edit');
+        Route::put('/color/{id}/edit', 'update')->name('admin.color.update');
+        Route::delete('/color/{id}', 'destroy')->name('admin.color.delete');
+
+    });
+    Route::controller(ProductColorController::class)->group(function() {
+        Route::get('/productcolor', 'index')->name('admin.color.list');
+        Route::get('/productcolor/create', 'create')->name('admin.p.color.create');
+        Route::post('/productcolor/create', 'store')->name('admin.p.color.store');
+        Route::get('/productcolor/{id}/edit', 'edit')->name('admin.p.color.edit');
+        Route::post('/productcolor/{id}/edit', 'update')->name('admin.p.color.update');
+        Route::delete('/productcolor/{id}', 'destroy')->name('admin.p.color.delete');
+
     });
 
     // Route::controller()->group(function() {
@@ -67,5 +103,20 @@ Route::prefix('shop')->group(function() {
     });
 });
 
+Route::post('/update-pcolor',   function ( ) {
+    // Xử lý dữ liệu của form con ở đây
+    // request()->qty . request()->id
+   $id = request()->id;
+   $qty = request()->qty;
 
+$data = [
+    'id' => $id,
+    'qty' => $qty
+];
+
+       return response()->json($data, 200)  ;
+}
+);
+
+// FormController
 

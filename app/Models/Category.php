@@ -20,4 +20,8 @@ class Category extends Model
         "seo_description"
 
   ];
+  public function products() 
+   {
+    return $this->hasMany(Product::class, 'category_id', 'id');
+  }
 }

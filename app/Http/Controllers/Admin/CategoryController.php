@@ -77,6 +77,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        dd($request);
         $formField = $request->validate([
             "name" => 'required',
             "image" => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',

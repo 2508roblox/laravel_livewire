@@ -18,7 +18,7 @@ class AdminMiddleware
     {
         if (Auth::user()->role_as == '0') {
                   return  redirect('/')->with('message', 'You are not allowed to admin');
-                }
+        }
         return $next($request);
     }
 }
