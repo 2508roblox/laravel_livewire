@@ -109,7 +109,6 @@ Route::group(['prefix' => 'admin'], function () {
     //     Route::delete('/category/{id}', 'destroy')->name('admin.category.delete');
     // });
 });
-Route::get('/', [FrontendController::class, 'index']);
 
 
 
@@ -146,3 +145,6 @@ Route::delete('/delete-pcolor',   function ( ) {
 
 
 
+///// Frontend Routing
+Route::get('/', [FrontendController::class, 'index']);
+Route::get('/categories', [FrontendController::class, 'showCategories']);

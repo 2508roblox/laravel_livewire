@@ -29,6 +29,13 @@ class FrontendController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+    public function showCategories()
+    {
+        $categories = Category::all()->where('status', '=', 'published');
+
+        return view('frontend.categories', compact(  'categories'));
+
+    }
     public function create()
     {
         //

@@ -8,7 +8,7 @@
  */
 ;
 (function($) {
-    
+    'use strict';
 
     $.HSCore.components.HSSlickCarousel = {
         /**
