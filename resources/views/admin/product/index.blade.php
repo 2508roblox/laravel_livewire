@@ -377,7 +377,7 @@
                                                 </div>
                                             </td>
                                             <td><a href="app-category.html" class="text-reset">
-                                                {{$product->category_name}}</a></td>
+                                                {{$product->sub_category_name}}</a></td>
                                             <td>
 
                                                 @if ($product->total_quantity != null)

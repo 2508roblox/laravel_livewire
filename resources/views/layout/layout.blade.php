@@ -3,6 +3,63 @@
 <html lang="en">
 
 <head>
+    <head>
+
+
+        <link rel="stylesheet" href="{{asset('client/vendor/ion-rangeslider/css/ion.rangeSlider.css')}}">
+        <link rel="stylesheet" href="{{asset('client/vendor/bootstrap-select/dist/css/bootstrap-select.min.css')}}">
+
+        <!-- CSS Electro Template -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {{-- sssssssssssssssssss --}}
     <!-- Title -->
     <title>Home-v6 | Electro - Responsive Website Template</title>
 
@@ -71,6 +128,7 @@
 <script src="{{asset('client/js/components/hs.focus-state.js')}}"></script>
 <script src="{{asset('client/js/components/hs.malihu-scrollbar.js')}}"></script>
 <script src="{{asset('client/js/components/hs.validation.js')}}"></script>
+<script src="{{asset('client/js/components/hs.range-slider.js')}}"></script>
 <script src="{{asset('client/js/components/hs.fancybox.js')}}"></script>
 <script src="{{asset('client/js/components/hs.onscroll-animation.js')}}"></script>
 <script src="{{asset('client/js/components/hs.slick-carousel.js')}}"></script>

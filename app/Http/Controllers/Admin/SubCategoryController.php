@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Brand;
+use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class BrandController extends Controller
+class SubCategoryController  extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-       return view('admin.brand.index');
+       return view('admin.subcategory.index');
     }
 
     /**
@@ -21,7 +22,8 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('admin.brand.create');
+        $categories = Category::all();
+        return view('admin.subcategory.create', compact('categories'));
 
     }
 
@@ -33,12 +35,14 @@ class BrandController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'slug' => 'required',
+            'category_id' => 'required',
             'status' => 'nullable',
         ]);
 
-        $validatedData['status'] = $validcatedData['status'] == 'published' ? '1' : '0';
-        Brand::create($validatedData);
-        return redirect('admin/brand')->with('message','brand has been created successfully!');
+        $validatedData['status'] = $validatedData['status'] == 'published' ? '1' : '0';
+        $category = Category::find($validatedData['category_id']);
+        $category->sub_categories()->create($validatedData);
+        return redirect('admin/subcategory')->with('message','subcategory has been created successfully!');
     }
 
     /**
@@ -54,9 +58,10 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        $brand = Brand::find($id);
+        $subcategory = SubCategory::find($id);
+        $categories = Category::all();
 
-        return view('admin/brand/edit', compact('brand'));
+        return view('admin/subcategory/edit', compact('subcategory', 'categories'));
     }
 
     /**
@@ -67,13 +72,15 @@ class BrandController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'slug' => 'required',
+            'category_id' => 'required',
+
             'status' => 'nullable',
         ]);
 
         $validatedData['status'] = $validatedData['status'] == 'published' ? '1' : '0';
 
-        Brand::find($id)->update($validatedData);
-        return redirect('admin/brand')->with('message','brand updated successfully!');
+        SubCategory::find($id)->update($validatedData);
+        return redirect('admin/subcategory')->with('message','subcategory updated successfully!');
     }
 
     /**
@@ -81,8 +88,8 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        $brand = Brand::find($id);
-        $brand->delete();
-        return redirect('admin/brand');
+        $subcategory = SubCategory::find($id);
+        $subcategory->delete();
+        return redirect('admin/subcategory');
     }
 }

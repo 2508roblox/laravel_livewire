@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Livewire\Admin\Brand;
-use App\Models\Brand;
+namespace App\Livewire\Admin\SubCategory;
+use App\Models\SubCategory;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 
@@ -14,6 +14,7 @@ class Index extends Component
         return [
             'name' => 'required',
             'slug' => 'required',
+            'cateogry_id' => 'required',
             'status' => 'nullable',
         ];
     }
@@ -22,13 +23,13 @@ class Index extends Component
         $validated['status'] = $validated['status'] == 'published' ? '1' : '0';
         Brand::create($validated);
 
-       
-        return   redirect('admin/brand');
+
+        return   redirect('admin/subcategory');
     }
     public function render()
     {
-        $brands = Brand::all();
-        return view('livewire.admin.brand.index', compact('brands'))->extends('layout.admin')->section('content');
+        $subcategories = SubCategory::all();
+        return view('livewire.admin.subcategory.index', compact('subcategories'))->extends('layout.admin')->section('content');
     }
 }
 

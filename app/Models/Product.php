@@ -12,7 +12,7 @@ class Product extends Model
     use HasFactory;
     protected $table = 'products';
     protected $fillable = [
-        "category_id",
+        "sub_category_id",
         "name",
         "slug",
         "brand",

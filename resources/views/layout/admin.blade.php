@@ -5,20 +5,7 @@
 <head>
     <meta charSet="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-{{--  --}}
 
-    <link rel="stylesheet" href="../../assets/vendor/font-awesome/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="../../assets/css/font-electro.css">
-
-    <link rel="stylesheet" href="../../assets/vendor/animate.css/animate.min.css">
-    <link rel="stylesheet" href="../../assets/vendor/hs-megamenu/src/hs.megamenu.css">
-    <link rel="stylesheet" href="../../assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
-    <link rel="stylesheet" href="../../assets/vendor/fancybox/jquery.fancybox.css">
-    <link rel="stylesheet" href="../../assets/vendor/slick-carousel/slick/slick.css">
-    <link rel="stylesheet" href="../../assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
-
-
-{{--  --}}
 
 
 
@@ -41,7 +28,6 @@
     <link rel="stylesheet" href="{{asset('admin/vendor/fullcalendar/main.min.css')}}" />
     <link rel="stylesheet" href="{{asset('admin/css/style.css')}}"   />
     {{-- slider --}}
-    <link rel="stylesheet" href=" {{asset('admin/vendor/slick-carousel/slick/slick.css')}} ">
     {{--  ckeditor --}}
     <script  src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-97489509-8')}}"></script>
@@ -84,7 +70,6 @@
     <script src="{{asset('admin/vendor/air-datepicker/js/datepicker.min.js')}}"></script>
     <script src="{{asset('admin/vendor/air-datepicker/js/i18n/datepicker.en.js')}}"></script>
     <script src="{{asset('admin/vendor/select2/js/select2.min.js')}}"></script>
-    <script src="{{asset('admin/vendor/fontawesome/js/all.min.js" data-auto-replace-svg="" async="')}}"></script>
     <script src="{{asset('admin/vendor/chart.js/chart.min.js')}}"></script>
     <script src="{{asset('admin/vendor/datatables/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('admin/vendor/datatables/js/dataTables.bootstrap5.min.js')}}"></script>

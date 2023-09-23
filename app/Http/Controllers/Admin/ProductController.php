@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Brand;
 use App\Models\Color;
 use App\Models\Product;
-use App\Models\Category;
+use App\Models\SubCategory;
 use App\Models\ProductColor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,13 +22,12 @@ class ProductController extends Controller
 
 
         $products = DB::table('products')
-        ->join('categories', 'products.category_id', '=', 'categories.id')
+        ->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
         ->leftJoin('product_colors', 'products.id', '=', 'product_colors.product_id')
         ->leftJoin('product_images', 'products.id', '=', 'product_images.product_id')
-        ->select('products.id as product_id', 'products.name as product_name', 'categories.name as category_name', DB::raw('SUM(product_colors.quantity) as total_quantity'), 'products.price as price', 'products.id as id', 'product_images.image')
-        ->groupBy('products.id', 'products.name', 'categories.name', 'products.price', 'products.id', 'product_images.image')
+        ->select('products.id as product_id', 'products.name as product_name', 'sub_categories.name as sub_category_name', DB::raw('SUM(product_colors.quantity) as total_quantity'), 'products.price as price', 'products.id as id', 'product_images.image')
+        ->groupBy('products.id', 'products.name', 'sub_categories.name', 'products.price', 'products.id', 'product_images.image')
         ->get();
-
 
        return view('admin.product.index', compact('products'));
     }
@@ -38,21 +37,21 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        $brands = Brand::all();
+
+        $categories = SubCategory::all();
+        $sub_categories = SubCategory::all();
         $colors = Color::all();
-        return view('admin.product.create', compact('categories', 'brands', 'colors'));
+        return view('admin.product.create', compact('sub_categories', 'colors'));
 
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request , Category $category, Product $product)
+    public function store(Request $request , SubCategory $sub_category, Product $product)
     {
-
        $validateData  = $request->validate([
-        "category_id"=> 'required',
+        "sub_category_id"=> 'required',
         "name"=> 'required|max:255',
         "slug"=> 'required',
         "brand"=> 'nullable',
@@ -74,8 +73,8 @@ class ProductController extends Controller
     // create
     $validateData['publish_date'] = $validateData['status'] == 'scheduled' ?  $validateData['publish_date'] : date("d/m/Y");
     $validateData['hot'] =  ( $validateData['hot'] ?? false)  ?  '1': '0';
-    $category = Category::find($validateData['category_id']);
-   $product =  $category->products()->create($validateData);
+    $sub_category = SubCategory::find($validateData['sub_category_id']);
+   $product =  $sub_category->products()->create($validateData);
 
 
  // product_imgs
@@ -88,14 +87,17 @@ class ProductController extends Controller
     }
 }
 //product color quantity
+if ($request->colors ?? false) {
     foreach ($request->colors as $key => $value) {
 
-       $product->productColor()->create([
-        'color_id' => $key,
-        'quantity' => $request->quantities[$key]
+        $product->productColor()->create([
+         'color_id' => $key,
+         'quantity' => $request->quantities[$key]
 
-       ]);
-    }
+        ]);
+     }
+}
+
     return redirect('/admin/product');
 
     }
@@ -114,7 +116,7 @@ class ProductController extends Controller
     public function edit( $id, Product $product)
     {
 
-        $categories = Category::all();
+        $categories = SubCategory::all();
         $product = Product::find($id);
         $images = $product->productImages()->get();
 
@@ -127,7 +129,7 @@ class ProductController extends Controller
         $colors = Color::whereDoesntHave('products', function ($query) use ($product) {
             $query->where('product_id', $product->id);
         })->get();
-        return view('admin.product.edit', compact('product', 'categories', 'images', 'colors_quantity', 'colors'));
+        return view('admin.product.edit', compact('product', 'sub_categories', 'images', 'colors_quantity', 'colors'));
     }
 
     /**
@@ -136,7 +138,7 @@ class ProductController extends Controller
     public function update(Request $request, string $id)
     {
         $validateData  = $request->validate([
-            "category_id"=> 'required',
+            "sub_category_id"=> 'required',
             "name"=> 'required|max:255',
             "slug"=> 'required',
             "brand"=> 'nullable',
@@ -193,7 +195,7 @@ if ($request->colors ?? false) {
     public function destroy ($id)
     {
         Product::destroy($id);
-        return redirect('admin/product')->with('message', 'Category deleted successfully');
+        return redirect('admin/product')->with('message', 'SubCategory deleted successfully');
     }
     public function destroyImg ($id)
     {

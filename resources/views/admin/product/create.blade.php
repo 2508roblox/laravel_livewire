@@ -56,7 +56,7 @@
                                                     class="form-label">Description</label>
 
                                                     <textarea  name="description" rows="" cols="80" required>
-                                                         
+
                                                     </textarea>
                                                   <script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
                                                    <script>
@@ -304,9 +304,9 @@
                                             <div class="mb-5">
                                                 <h2 class="mb-0 fs-exact-18">Categories</h2>
                                             </div>
-                                            <select name="category_id" class="sa-select2 form-select">
-                                                @foreach ($categories as $cate)
-                                                    <option value="{{$cate->id}}">{{ $cate->name }}</option>
+                                            <select name="sub_category_id" class="sa-select2 form-select">
+                                                @foreach ($sub_categories as $sub_category)
+                                                    <option value="{{$sub_category->id}}">{{ $sub_category->name }}</option>
                                                 @endforeach ()
 
 

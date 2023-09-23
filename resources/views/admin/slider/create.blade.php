@@ -40,9 +40,18 @@
                                         </div>
                                         <div class="mb-4"><label for="form-category/description"
                                             class="form-label">Description</label>
-                                        <textarea name="description" id="form-category/description" class="sa-quill-control form-control" rows="8">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ornare, mi in ornare elementum, libero nibh lacinia urna, quis convallis lorem erat at purus. Maecenas eu varius nisi.</textarea>
-                                          @error('description')
-                                               {{$message}}
+                                            <textarea  name="description" rows="" cols="80" required>
+                                            </textarea>
+                                          <script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
+                                           <script>
+
+
+                                               CKEDITOR.replace('description');
+                                           </script>
+
+
+                                            @error('description')
+                                                {{ $message }}
                                             @enderror
                                     </div>
                                         <div class="card w-100 mt-5">

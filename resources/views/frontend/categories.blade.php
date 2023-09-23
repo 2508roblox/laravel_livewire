@@ -1,5 +1,7 @@
 @extends('layout.layout')
+@php
 
+@endphp
 @section('content')
 @include('inc/_header')
 <main id="content" role="main">
@@ -34,32 +36,29 @@
                             <div id="sidebarNav1Collapse" class="collapse" data-parent="#sidebarNav">
                                 <ul id="sidebarNav1" class="list-unstyled dropdown-list">
                                     <!-- Menu List -->
-                                    <li><a class="dropdown-item" href="#">Accessories<span class="text-gray-25 font-size-12 font-weight-normal"> (56)</span></a></li>
-                                    <li><a class="dropdown-item" href="#">Cameras & Photography<span class="text-gray-25 font-size-12 font-weight-normal"> (11)</span></a></li>
-                                    <li><a class="dropdown-item" href="#">Computer Components<span class="text-gray-25 font-size-12 font-weight-normal"> (22)</span></a></li>
-                                    <li><a class="dropdown-item" href="#">Gadgets<span class="text-gray-25 font-size-12 font-weight-normal"> (5)</span></a></li>
-                                    <li><a class="dropdown-item" href="#">Home Entertainment<span class="text-gray-25 font-size-12 font-weight-normal"> (7)</span></a></li>
-                                    <li><a class="dropdown-item" href="#">Laptops & Computers<span class="text-gray-25 font-size-12 font-weight-normal"> (42)</span></a></li>
-                                    <li><a class="dropdown-item" href="#">Printers & Ink<span class="text-gray-25 font-size-12 font-weight-normal"> (63)</span></a></li>
-                                    <li><a class="dropdown-item" href="#">Smart Phones & Tablets<span class="text-gray-25 font-size-12 font-weight-normal"> (11)</span></a></li>
-                                    <li><a class="dropdown-item" href="#">TV & Audio<span class="text-gray-25 font-size-12 font-weight-normal"> (66)</span></a></li>
-                                    <li><a class="dropdown-item" href="#">Video Games & Consoles<span class="text-gray-25 font-size-12 font-weight-normal"> (31)</span></a></li>
+                                    @forelse ($categories as $cate)
+                                    <li><a class="dropdown-item" href="{{route('frontend.category.list', ['category_slug' => $cate->slug])}}">{{Str::ucfirst($cate->name)}}<span class="text-gray-25 font-size-12 font-weight-normal"> ({{$cate->totalProducts}})</span></a></li>
+
+                                    @empty
+
+                                    @endforelse
+
                                     <!-- End Menu List -->
                                 </ul>
                             </div>
                         </li>
                         <li>
-                            <a class="dropdown-current active" href="#">Laptops & Computers</a>
+                            <a class="dropdown-current active" href="#">{{$currentCategory[0]->name}}</a>
 
                             <ul class="list-unstyled dropdown-list">
                                 <!-- Menu List -->
-                                <li><a class="dropdown-item" href="#">Accessories<span class="text-gray-25 font-size-12 font-weight-normal"> (56)</span></a></li>
-                                <li><a class="dropdown-item" href="#">All in One<span class="text-gray-25 font-size-12 font-weight-normal"> (51)</span></a></li>
-                                <li><a class="dropdown-item" href="#">Gaming<span class="text-gray-25 font-size-12 font-weight-normal"> (44)</span></a></li>
-                                <li><a class="dropdown-item" href="#">Headphones<span class="text-gray-25 font-size-12 font-weight-normal"> (89)</span></a></li>
-                                <li><a class="dropdown-item" href="#">Headphone Accessories<span class="text-gray-25 font-size-12 font-weight-normal"> (4)</span></a></li>
-                                <li><a class="dropdown-item" href="#">Pendrives<span class="text-gray-25 font-size-12 font-weight-normal"> (14)</span></a></li>
-                                <li><a class="dropdown-item" href="#">Power Banks<span class="text-gray-25 font-size-12 font-weight-normal"> (61)</span></a></li>
+                                @forelse ($currentCategory[0]->subCategoriesWithProductCount as $cate)
+
+                                <li><a class="dropdown-item" href="{{route('frontend.category.products',  [ 'category_slug' => $currentCategory[0]->slug, 'sub_slug' => $cate['subCategory']->slug ] )}}">{{$cate['subCategory']->name}}<span class="text-gray-25 font-size-12 font-weight-normal"> ({{$cate['productCount']}})</span></a></li>
+                                @empty
+
+                                @endforelse
+
                                 <!-- End Menu List -->
                             </ul>
                         </li>
@@ -188,105 +187,29 @@
             </div>
             <div class="col-xl-9 col-wd-9gdot5">
                 <div class="d-flex justify-content-between align-items-center border-bottom border-color-1 flex-lg-nowrap flex-wrap mb-4">
-                    <h3 class="section-title section-title__full mb-0 pb-2 font-size-22">Laptops &amp; Computers Categories</h3>
+                    <h3 class="section-title section-title__full mb-0 pb-2 font-size-22">{{Str::ucfirst($currentCategory[0]->name)}}</h3>
                 </div>
                 <ul class="row list-unstyled products-group no-gutters mb-6">
+                    @forelse ($currentCategory[0]->sub_categories as $item)
                     <li class="col-6 col-md-2gdot4 product-item">
-                        <div class="product-item__outer h-100 w-100">
+                        <div class="product-item__outer  " style="height: 214px;">
                             <div class="product-item__inner px-xl-4 p-3">
                                 <div class="product-item__body pb-xl-2">
                                     <div class="mb-2">
-                                        <a href="#" class="d-block text-center"><img class="img-fluid" src="{{asset('client/img/300X300/img8.jpg')}}" alt="Image Description"></a>
+                                        <a href="" class="d-block text-center"><img class="img-fluid" src="{{asset('client/img/300X300/img8.jpg')}}" alt="Image Description"></a>
                                     </div>
-                                    <h5 class="text-center mb-1 product-item__title"><a href="../shop/single-product-fullwidth.html" class="font-size-15 text-gray-90">Accessories</a></h5>
+                                    <h5 class="text-center mb-1 product-item__title"><a href="../shop/single-product-fullwidth.html" class="font-size-15 text-gray-90">@php
+                                        echo ucwords($item->name);
+                                    @endphp</a></h5>
                                 </div>
                             </div>
                         </div>
                     </li>
-                    <li class="col-6 col-md-2gdot4 product-item">
-                        <div class="product-item__outer h-100 w-100">
-                            <div class="product-item__inner px-xl-4 p-3">
-                                <div class="product-item__body pb-xl-2">
-                                    <div class="mb-2">
-                                        <a href="#" class="d-block text-center"><img class="img-fluid" src="{{asset('client/img/300X300/img15.jpg')}}" alt="Image Description"></a>
-                                    </div>
-                                    <h5 class="text-center mb-1 product-item__title"><a href="../shop/single-product-fullwidth.html" class="font-size-15 text-gray-90">All in One</a></h5>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="col-6 col-md-2gdot4 product-item">
-                        <div class="product-item__outer h-100 w-100">
-                            <div class="product-item__inner px-xl-4 p-3">
-                                <div class="product-item__body pb-xl-2">
-                                    <div class="mb-2">
-                                        <a href="#" class="d-block text-center"><img class="img-fluid" src="{{asset('client/img/300X300/img22.jpg')}}" alt="Image Description"></a>
-                                    </div>
-                                    <h5 class="text-center mb-1 product-item__title"><a href="../shop/single-product-fullwidth.html" class="font-size-15 text-gray-90">Gaming</a></h5>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="col-6 col-md-2gdot4 product-item">
-                        <div class="product-item__outer h-100 w-100">
-                            <div class="product-item__inner px-xl-4 p-3">
-                                <div class="product-item__body pb-xl-2">
-                                    <div class="mb-2">
-                                        <a href="#" class="d-block text-center"><img class="img-fluid" src="{{asset('client/img/300X300/img23.jpg')}}" alt="Image Description"></a>
-                                    </div>
-                                    <h5 class="text-center mb-1 product-item__title"><a href="../shop/single-product-fullwidth.html" class="font-size-15 text-gray-90">Laptops</a></h5>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="col-6 col-md-2gdot4 product-item remove-divider">
-                        <div class="product-item__outer h-100 w-100">
-                            <div class="product-item__inner px-xl-4 p-3">
-                                <div class="product-item__body pb-xl-2">
-                                    <div class="mb-2">
-                                        <a href="#" class="d-block text-center"><img class="img-fluid" src="{{asset('client/img/300X300/img24.jpg')}}" alt="Image Description"></a>
-                                    </div>
-                                    <h5 class="text-center mb-1 product-item__title"><a href="../shop/single-product-fullwidth.html" class="font-size-15 text-gray-90">Mac Computers</a></h5>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="col-6 col-md-2gdot4 product-item">
-                        <div class="product-item__outer h-100 w-100">
-                            <div class="product-item__inner px-xl-4 p-3">
-                                <div class="product-item__body pb-xl-2">
-                                    <div class="mb-2">
-                                        <a href="#" class="d-block text-center"><img class="img-fluid" src="{{asset('client/img/300X300/img25.jpg')}}" alt="Image Description"></a>
-                                    </div>
-                                    <h5 class="text-center mb-1 product-item__title"><a href="../shop/single-product-fullwidth.html" class="font-size-15 text-gray-90">Peripherals</a></h5>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="col-6 col-md-2gdot4 product-item">
-                        <div class="product-item__outer h-100 w-100">
-                            <div class="product-item__inner px-xl-4 p-3">
-                                <div class="product-item__body pb-xl-2">
-                                    <div class="mb-2">
-                                        <a href="#" class="d-block text-center"><img class="img-fluid" src="{{asset('client/img/300X300/img5.jpg')}}" alt="Image Description"></a>
-                                    </div>
-                                    <h5 class="text-center mb-1 product-item__title"><a href="../shop/single-product-fullwidth.html" class="font-size-15 text-gray-90">Servers</a></h5>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="col-6 col-md-2gdot4 product-item remove-divider">
-                        <div class="product-item__outer h-100 w-100">
-                            <div class="product-item__inner px-xl-4 p-3">
-                                <div class="product-item__body pb-xl-2">
-                                    <div class="mb-2">
-                                        <a href="#" class="d-block text-center"><img class="img-fluid" src="{{asset('client/img/300X300/img26.jpg')}}" alt="Image Description"></a>
-                                    </div>
-                                    <h5 class="text-center mb-1 product-item__title"><a href="../shop/single-product-fullwidth.html" class="font-size-15 text-gray-90">Ultrabooks</a></h5>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                    @empty
+                        <p class="text-danger">*There are no categories to display</p>
+                    @endforelse
+
+
                 </ul>
                 <!-- Best Sellers -->
                 <div class="mb-6 position-relative">

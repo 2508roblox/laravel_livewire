@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProductColorController;
 
 /*
@@ -50,12 +51,13 @@ Route::group(['prefix' => 'admin'], function () {
         Route::delete('/category/{id}', 'destroy')->name('admin.category.delete');
     });
 
-    Route::controller(BrandController::class)->group(function() {
-        Route::get('/brand', 'index')->name('admin.brand.list');
-        Route::get('/brand/create', 'create')->name('admin.brand.create');
-        Route::get('/brand/{id}/edit', 'edit')->name('admin.brand.edit');
-        Route::put('/brand/{id}/edit', 'update')->name('admin.brand.update');
-        Route::delete('/brand/{id}', 'destroy')->name('admin.brand.delete');
+    Route::controller(SubCategoryController::class)->group(function() {
+        Route::get('/subcategory', 'index')->name('admin.subcategory.list');
+        Route::get('/subcategory/create', 'create')->name('admin.subcategory.create');
+        Route::post('/subcategory/create', 'store')->name('admin.subcategory.store');
+        Route::get('/subcategory/{id}/edit', 'edit')->name('admin.subcategory.edit');
+        Route::put('/subcategory/{id}/edit', 'update')->name('admin.subcategory.update');
+        Route::delete('/subcategory/{id}', 'destroy')->name('admin.subcategory.delete');
     });
     Route::controller(ProductController::class)->group(function() {
         Route::get('/product', 'index')->name('admin.product.list');
@@ -101,7 +103,7 @@ Route::group(['prefix' => 'admin'], function () {
     });
 
     // Route::controller()->group(function() {
-    //     Route::get('/brand')->name('admin.brand.list');
+    //     Route::get('/subcategory')->name('admin.subcategory.list');
     //     Route::get('/category/create', 'create')->name('admin.category.create');
     //     Route::post('/category/create', 'store')->name('admin.category.store');
     //     Route::get('/category/{id}/edit', 'edit')->name('admin.category.edit');
@@ -147,4 +149,6 @@ Route::delete('/delete-pcolor',   function ( ) {
 
 ///// Frontend Routing
 Route::get('/', [FrontendController::class, 'index']);
-Route::get('/categories', [FrontendController::class, 'showCategories']);
+// show all categories and category's sub categories
+Route::get('/category/{category_slug}', [FrontendController::class, 'showCategories'])->name('frontend.category.list');
+Route::get('/category/{category_slug}/{sub_slug}', [FrontendController::class, 'showCategoryProducts'])->name('frontend.category.products');

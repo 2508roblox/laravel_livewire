@@ -1,7 +1,7 @@
 @extends('layout.admin')
 @section('content')
 <div class="">
-    <livewire:admin.brand.index   />
+    <livewire:admin.subcategory.index   />
 </div>
 
 @endsection
