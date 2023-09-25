@@ -60,7 +60,7 @@
                                     @forelse ($currentCategory->subCategoriesWithProductCount as $item)
 
 
-                                    <li><a class="dropdown-item" href="#">@php
+                                    <li><a class="dropdown-item" href="{{route('frontend.category.products' ,[ 'category_slug' => $currentCategory->slug, 'sub_slug' => $item['subCategory']->slug] )}}"">@php
                                         echo ucwords($item['subCategory']->name);
                                     @endphp<span
                                         class="text-gray-25 font-size-12 font-weight-normal">({{$item['productCount']}})</span></a></li>
@@ -74,7 +74,9 @@
                         </ul>
                         <!-- End List -->
                     </div>
+                    {{-- filter section --}}
                     <div class="mb-6">
+                       <form action="" >
                         <div class="border-bottom border-color-1 mb-5">
                             <h3 class="section-title section-title__sm mb-0 pb-2 font-size-18">Filters</h3>
                         </div>
@@ -82,11 +84,13 @@
                             <h4 class="font-size-14 mb-3 font-weight-bold">Brands</h4>
 
                             <!-- Checkboxes -->
+
+
                             @forelse ($brands as $brand)
                             <div class="form-group d-flex align-items-center justify-content-between mb-2 pb-1">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="brandTnf">
-                                    <label class="custom-control-label" for="brandTnf">{{$brand->name}}
+                                    <input type="checkbox" name="brands[]" {{in_array($brand->id, $_GET['brands'] ?? []) ? 'checked' : ''}}  value="{{$brand->id}}" class="custom-control-input" id="brandTnf{{$brand->id}}">
+                                    <label class="custom-control-label" for="brandTnf{{$brand->id}}">{{$brand->name}}
                                         <span class="text-gray-25 font-size-12 font-weight-normal"> {{$brand->brandWithSubCateProductCount}}</span>
                                     </label>
                                 </div>
@@ -123,6 +127,7 @@
                             </a>
                             <!-- End Link -->
                         </div>
+
                         <div class="border-bottom pb-4 mb-4">
                             <h4 class="font-size-14 mb-3 font-weight-bold">Color</h4>
 
@@ -202,6 +207,7 @@
                             </a>
                             <!-- End Link -->
                         </div>
+                        {{-- color filter --}}
                         <div class="range-slider">
                             <h4 class="font-size-14 mb-3 font-weight-bold">Price</h4>
                             <!-- Range Slider -->
@@ -222,6 +228,7 @@
                             </div>
                             <button type="submit" class="btn px-4 btn-primary-dark-w py-2 rounded-lg">Filter</button>
                         </div>
+                       </form>
                     </div>
                     <div class="mb-8">
                         <div class="border-bottom border-color-1 mb-5">
@@ -471,6 +478,7 @@
                     <!-- End Shop-control-bar -->
                     <!-- Shop Body -->
                     <!-- Tab Content -->
+                    {{-- Products section --}}
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade pt-2 active show" id="pills-one-example1" role="tabpanel"
                             aria-labelledby="pills-one-example1-tab" data-target-group="groups">
@@ -482,19 +490,19 @@
                                             <div class="product-item__inner px-xl-4 p-3">
                                                 <div class="product-item__body pb-xl-2">
                                                     <div class="mb-2"><a
-                                                            href="../shop/product-categories-7-column-full-width.html"
+                                                            href="{{route('frontend.category.show', ['product_slug'=> $product->slug])}}"
                                                             class="font-size-12 text-gray-5">{{ $sub_category->name }}</a>
                                                     </div>
                                                     <h5 class="mb-1 product-item__title"><a
-                                                            href="../shop/single-product-fullwidth.html"
+                                                           href="{{route('frontend.category.show', ['product_slug'=> $product->slug])}}"
                                                             class="text-blue font-weight-bold">@php
                                                                 echo ucwords($product->name);
                                                             @endphp</a>
                                                     </h5>
                                                     <div class="mb-2">
-                                                        <a href="../shop/single-product-fullwidth.html"
+                                                        <a href="{{route('frontend.category.show', ['product_slug'=> $product->slug])}}"
                                                             class="d-block text-center"><img class="img-fluid"
-                                                                src="{{ asset('client/img/212X200/img2.jpg') }}"
+                                                            style="height: 160px; object-fit: contain" src="{{ $product->image_url ? asset('storage/' . $product->image_url) : asset('client/img/212X200/img2.jpg') }}"
                                                                 alt="Image Description"></a>
                                                     </div>
                                                     <div class="flex-center-between mb-1">
@@ -502,7 +510,7 @@
                                                             <div class="text-gray-100">${{$product->price}}.00</div>
                                                         </div>
                                                         <div class="d-none d-xl-block prodcut-add-cart">
-                                                            <a href="../shop/single-product-fullwidth.html"
+                                                            <a href="{{route('frontend.category.show', ['product_slug'=> $product->slug])}}"
                                                                 class="btn-add-cart btn-primary transition-3d-hover"><i
                                                                     class="ec ec-add-to-cart"></i></a>
                                                         </div>
@@ -537,7 +545,7 @@
                                             <div class="product-item__inner px-xl-4 p-3">
                                                 <div class="product-item__body pb-xl-2">
                                                     <div class="mb-2"><a
-                                                            href="../shop/product-categories-7-column-full-width.html"
+                                                            href="{{route('frontend.category.show', ['product_slug'=> $product->slug])}}"
                                                             class="font-size-12 text-gray-5">Speakers</a></div>
                                                     <h5 class="mb-1 product-item__title"><a
                                                             href="../shop/single-product-fullwidth.html"
@@ -618,7 +626,7 @@
                                                 <div class="product-item__body col-6 col-md-5">
                                                     <div class="pr-lg-10">
                                                         <div class="mb-2"><a
-                                                                href="../shop/product-categories-7-column-full-width.html"
+                                                                href="{{route('frontend.category.show', ['product_slug'=> $product->slug])}}"
                                                                 class="font-size-12 text-gray-5">Speakers</a></div>
                                                         <h5 class="mb-2 product-item__title"><a
                                                                 href="../shop/single-product-fullwidth.html"
@@ -701,7 +709,7 @@
                                                 <div class="product-item__body col-6 col-md-7">
                                                     <div class="pr-lg-10">
                                                         <div class="mb-2"><a
-                                                                href="../shop/product-categories-7-column-full-width.html"
+                                                                href="{{route('frontend.category.show', ['product_slug'=> $product->slug])}}"
                                                                 class="font-size-12 text-gray-5">Speakers</a></div>
                                                         <h5 class="mb-2 product-item__title"><a
                                                                 href="../shop/single-product-fullwidth.html"

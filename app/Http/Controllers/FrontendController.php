@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Models\Slider;
+use App\Models\Product;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FrontendController extends Controller
 {
@@ -139,17 +141,31 @@ class FrontendController extends Controller
 
 
 
-        $sub_category = $category->sub_categories->where('slug', $sub_slug)[0] ;
-        $products = $sub_category->products()->filter(request(['filterOptions']))->get();
+        $sub_category = $subcategory->where('slug', $sub_slug)->get()[0];
+        $products = $sub_category->products()->filter(request(['filterOptions', 'brands']))->get();
+        foreach ($products as $product) {
+
+            $product->image_url = $product->productImages()->orderBy('id', 'ASC')->first()->image ?? null;
+        }
         $brands = Brand::with('products')->get() ;
         $brands = $brand->countProducts($brands, $sub_category->id);
 
         return view('frontend.categoryProduct', compact('sub_category', 'products', 'brands', 'currentCategory', 'categories'));
 
     }
-    public function create()
+    public function showSingleProduct($product_slug)
     {
-        //
+
+        $product = Product::where('slug', $product_slug)->first();
+        if (!$product) {
+            // Xử lý khi không tìm thấy sản phẩm
+            abort(404);
+        }
+        //breadcrumb
+        $sub_cate_name = $product->getSubCate()->get()[0]->name;
+
+        $cate_name = $product->getSubCate()->get()[0]->name;
+       return view('frontend.pages.singleProduct');
     }
 
     /**

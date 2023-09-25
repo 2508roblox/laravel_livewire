@@ -1,7 +1,5 @@
 @extends('layout.layout')
-@php
-
-@endphp
+ 
 @section('content')
 @include('inc/_header')
 <main id="content" role="main">
@@ -196,7 +194,7 @@
                             <div class="product-item__inner px-xl-4 p-3">
                                 <div class="product-item__body pb-xl-2">
                                     <div class="mb-2">
-                                        <a href="" class="d-block text-center"><img class="img-fluid" src="{{asset('client/img/300X300/img8.jpg')}}" alt="Image Description"></a>
+                                        <a href="{{route('frontend.category.products' ,[ 'category_slug' => $currentCategory[0]->slug, 'sub_slug' => $item->slug ] )}}" class="d-block text-center"><img class="img-fluid" src="{{asset('client/img/300X300/img8.jpg')}}" alt="Image Description"></a>
                                     </div>
                                     <h5 class="text-center mb-1 product-item__title"><a href="../shop/single-product-fullwidth.html" class="font-size-15 text-gray-90">@php
                                         echo ucwords($item->name);

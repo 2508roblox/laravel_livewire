@@ -20,14 +20,32 @@ class ProductController extends Controller
     public function index(Product $product)
     {
 
-
         $products = DB::table('products')
         ->join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
         ->leftJoin('product_colors', 'products.id', '=', 'product_colors.product_id')
-        ->leftJoin('product_images', 'products.id', '=', 'product_images.product_id')
-        ->select('products.id as product_id', 'products.name as product_name', 'sub_categories.name as sub_category_name', DB::raw('SUM(product_colors.quantity) as total_quantity'), 'products.price as price', 'products.id as id', 'product_images.image')
-        ->groupBy('products.id', 'products.name', 'sub_categories.name', 'products.price', 'products.id', 'product_images.image')
+        ->leftJoin('product_images', function ($join) {
+            $join->on('products.id', '=', 'product_images.product_id')
+                ->whereRaw('product_images.id = (SELECT MIN(id) FROM product_images WHERE product_id = products.id)');
+        })
+        ->select(
+            'products.id as product_id',
+            'products.name as product_name',
+            'sub_categories.name as sub_category_name',
+            DB::raw('SUM(product_colors.quantity) as total_quantity'),
+            'products.price as price',
+            'product_images.image'
+        )
+        ->groupBy(
+            'products.id',
+            'products.name',
+            'sub_categories.name',
+            'products.price',
+            'product_images.image'
+        )
+        ->distinct('products.id')
         ->get();
+
+    $products = $products->unique('product_id')->values();
 
        return view('admin.product.index', compact('products'));
     }

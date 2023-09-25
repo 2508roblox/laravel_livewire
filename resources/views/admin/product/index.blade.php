@@ -419,7 +419,7 @@
                                                         <li>
                                                             <hr class="dropdown-divider" />
                                                         </li>
-                                                        <li>  <form action="{{route('admin.product.delete', ['id' => $product->id])}}" method="POST">
+                                                        <li>  <form action="{{route('admin.product.delete', ['id' => $product->product_id])}}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
 

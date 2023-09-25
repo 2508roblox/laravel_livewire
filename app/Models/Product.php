@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Color;
+use App\Models\SubCategory;
 use App\Models\ProductColor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -29,6 +30,9 @@ class Product extends Model
         "meta_description",
 
   ];
+  public function getSubCate () {
+    return $this->belongsTo(SubCategory::class, 'sub_category_id');
+  }
   public function productImages () {
     return $this->hasMany(ProductImage::class, 'product_id', 'id');
   }
@@ -47,6 +51,10 @@ class Product extends Model
             $query->orderBy('price', 'ASC');
         });
     }
+    if($filters['brands'] ?? false  ) {
+       $query->whereIn('brand_id', $filters['brands']);
+    }
+
 
     // if($filters['search'] ?? false) {
     //     $query->where('title', 'like', '%' . request('search') . '%')

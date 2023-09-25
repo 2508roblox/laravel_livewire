@@ -61,7 +61,7 @@
                             }]'>
                        @forelse ($categories as $category)
                        <div class="js-slide">
-                        <a href="../shop/product-categories-7-column-full-width.html" class="d-block text-center bg-on-hover width-122 mx-auto">
+                        <a href="{{route('frontend.category.list', ['category_slug' => $category->slug])}}" class="d-block text-center bg-on-hover width-122 mx-auto">
                             <div class="bg pt-4 rounded-circle-top width-122 height-75">
                                 <i class="ec ec-{{$category->slug}} font-size-40"></i>
                             </div>

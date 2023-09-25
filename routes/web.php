@@ -160,3 +160,4 @@ Route::get('/', [FrontendController::class, 'index']);
 // show all categories and category's sub categories
 Route::get('/category/{category_slug}', [FrontendController::class, 'showCategories'])->name('frontend.category.list');
 Route::get('/category/{category_slug}/{sub_slug}', [FrontendController::class, 'showCategoryProducts'])->name('frontend.category.products');
+Route::get('/{product_slug}', [FrontendController::class, 'showSingleProduct'])->name('frontend.category.show');
