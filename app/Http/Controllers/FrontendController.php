@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Slider;
 use App\Models\Category;
 use App\Models\SubCategory;
@@ -77,20 +78,73 @@ class FrontendController extends Controller
         $currentCate->subCategoriesWithProductCount = $subCategoriesWithProductCount;
             $currentCate->totalProducts = $totalCategoryProducts;
     }
-
     //current category
     return view('frontend.categories', compact('categories', 'currentCategory'));
 }
-    public function showCategoryProducts(SubCategory $subcategory, $category_slug, $sub_slug)
+
+
+///showCategoryProducts
+    public function showCategoryProducts(SubCategory $subcategory, Brand $brand, $category_slug, $sub_slug)
     {
+        $categories = Category::with(['sub_categories.products'])
+    ->where('status', 'published')
+    ->get();
+
+        foreach ($categories as $category) {
+        $totalCategoryProducts = 0;
+        $subCategoriesWithProductCount = [];
+
+        foreach ($category->sub_categories as $subCategory) {
+            $productCount = $subCategory->products->count();
+            $totalCategoryProducts += $productCount;
+
+            $subCategoriesWithProductCount[] = [
+                'subCategory' => $subCategory,
+                'productCount' => $productCount,
+            ];
+        }
+
+        $category->subCategoriesWithProductCount = $subCategoriesWithProductCount;
+        $category->totalProducts = $totalCategoryProducts;
+
+    }
+    $currentCategory =   Category::with(['sub_categories.products'])
+    ->where('status', 'published')
+    ->where('slug', $category_slug)
+    ->get();
+
+    foreach ($currentCategory as $currentCate) {
+        $totalCategoryProducts = 0;
+        $subCategoriesWithProductCount = [];
+
+        foreach ($currentCate->sub_categories as $subCategory) {
+            $productCount = $subCategory->products->count();
+            $totalCategoryProducts += $productCount;
+
+            $subCategoriesWithProductCount[] = [
+                'subCategory' => $subCategory,
+                'productCount' => $productCount,
+            ];
+        }
+        $currentCate->subCategoriesWithProductCount = $subCategoriesWithProductCount;
+            $currentCate->totalProducts = $totalCategoryProducts;
+    }
+    $currentCategory = $currentCategory[0];
+
+
+    ////end categories sidebar
         $category =Category::with(['sub_categories'])
         ->where('slug', $category_slug)
         ->get()[0];
 
+
+
         $sub_category = $category->sub_categories->where('slug', $sub_slug)[0] ;
         $products = $sub_category->products()->filter(request(['filterOptions']))->get();
+        $brands = Brand::with('products')->get() ;
+        $brands = $brand->countProducts($brands, $sub_category->id);
 
-        return view('frontend.categoryProduct', compact('sub_category', 'products'));
+        return view('frontend.categoryProduct', compact('sub_category', 'products', 'brands', 'currentCategory', 'categories'));
 
     }
     public function create()

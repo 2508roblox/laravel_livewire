@@ -39,50 +39,35 @@
                                 <div id="sidebarNav1Collapse" class="collapse" data-parent="#sidebarNav">
                                     <ul id="sidebarNav1" class="list-unstyled dropdown-list">
                                         <!-- Menu List -->
-                                        <li><a class="dropdown-item" href="#">Accessories<span
-                                                    class="text-gray-25 font-size-12 font-weight-normal"> (56)</span></a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">Cameras & Photography<span
-                                                    class="text-gray-25 font-size-12 font-weight-normal"> (11)</span></a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">Computer Components<span
-                                                    class="text-gray-25 font-size-12 font-weight-normal"> (22)</span></a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">Gadgets<span
-                                                    class="text-gray-25 font-size-12 font-weight-normal"> (5)</span></a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">Home Entertainment<span
-                                                    class="text-gray-25 font-size-12 font-weight-normal"> (7)</span></a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">Laptops & Computers<span
-                                                    class="text-gray-25 font-size-12 font-weight-normal"> (42)</span></a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">Printers & Ink<span
-                                                    class="text-gray-25 font-size-12 font-weight-normal"> (63)</span></a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">{{ $sub_category->name }}<span
-                                                    class="text-gray-25 font-size-12 font-weight-normal"> (11)</span></a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">TV & Audio<span
-                                                    class="text-gray-25 font-size-12 font-weight-normal"> (66)</span></a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">Video Games & Consoles<span
-                                                    class="text-gray-25 font-size-12 font-weight-normal"> (31)</span></a>
-                                        </li>
+                                        @forelse ($categories as $cate)
+                                        <li><a class="dropdown-item" href="{{route('frontend.category.list', ['category_slug' => $cate->slug])}}">{{Str::ucfirst($cate->name)}}<span class="text-gray-25 font-size-12 font-weight-normal"> ({{$cate->totalProducts}})</span></a></li>
+
+                                        @empty
+
+                                        @endforelse
+
                                         <!-- End Menu List -->
                                     </ul>
+
                                 </div>
                             </li>
                             <li>
-                                <a class="dropdown-current active" href="#">{{ $sub_category->name }} <span
-                                        class="text-gray-25 font-size-12 font-weight-normal"> (50)</span></a>
+                                <a class="dropdown-current active" href="#">{{ $currentCategory->name }} <span
+                                        class="text-gray-25 font-size-12 font-weight-normal"> ({{$currentCategory['totalProducts']}})</span></a>
 
                                 <ul class="list-unstyled dropdown-list">
                                     <!-- Menu List -->
-                                    <li><a class="dropdown-item" href="#">Smartphones<span
-                                                class="text-gray-25 font-size-12 font-weight-normal"> (30)</span></a></li>
-                                    <li><a class="dropdown-item" href="#">Tablets<span
-                                                class="text-gray-25 font-size-12 font-weight-normal"> (20)</span></a></li>
+                                    @forelse ($currentCategory->subCategoriesWithProductCount as $item)
+
+
+                                    <li><a class="dropdown-item" href="#">@php
+                                        echo ucwords($item['subCategory']->name);
+                                    @endphp<span
+                                        class="text-gray-25 font-size-12 font-weight-normal">({{$item['productCount']}})</span></a></li>
+                                    @empty
+                                        <p class="text-danger">*There are no categories to display</p>
+                                    @endforelse
+
                                     <!-- End Menu List -->
                                 </ul>
                             </li>
@@ -97,63 +82,29 @@
                             <h4 class="font-size-14 mb-3 font-weight-bold">Brands</h4>
 
                             <!-- Checkboxes -->
-                            <div class="form-group d-flex align-items-center justify-content-between mb-2 pb-1">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="brandAdidas">
-                                    <label class="custom-control-label" for="brandAdidas">Adidas
-                                        <span class="text-gray-25 font-size-12 font-weight-normal"> (56)</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group d-flex align-items-center justify-content-between mb-2 pb-1">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="brandNewBalance">
-                                    <label class="custom-control-label" for="brandNewBalance">New Balance
-                                        <span class="text-gray-25 font-size-12 font-weight-normal"> (56)</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group d-flex align-items-center justify-content-between mb-2 pb-1">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="brandNike">
-                                    <label class="custom-control-label" for="brandNike">Nike
-                                        <span class="text-gray-25 font-size-12 font-weight-normal"> (56)</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group d-flex align-items-center justify-content-between mb-2 pb-1">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="brandFredPerry">
-                                    <label class="custom-control-label" for="brandFredPerry">Fred Perry
-                                        <span class="text-gray-25 font-size-12 font-weight-normal"> (56)</span>
-                                    </label>
-                                </div>
-                            </div>
+                            @forelse ($brands as $brand)
                             <div class="form-group d-flex align-items-center justify-content-between mb-2 pb-1">
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input" id="brandTnf">
-                                    <label class="custom-control-label" for="brandTnf">The North Face
-                                        <span class="text-gray-25 font-size-12 font-weight-normal"> (56)</span>
+                                    <label class="custom-control-label" for="brandTnf">{{$brand->name}}
+                                        <span class="text-gray-25 font-size-12 font-weight-normal"> {{$brand->brandWithSubCateProductCount}}</span>
                                     </label>
                                 </div>
                             </div>
+                            @empty
+
+                            @endforelse
+
                             <!-- End Checkboxes -->
 
                             <!-- View More - Collapse -->
                             <div class="collapse" id="collapseBrand">
-                                <div class="form-group d-flex align-items-center justify-content-between mb-2 pb-1">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="brandGucci">
-                                        <label class="custom-control-label" for="brandGucci">Gucci
-                                            <span class="text-gray-25 font-size-12 font-weight-normal"> (56)</span>
-                                        </label>
-                                    </div>
-                                </div>
+
                                 <div class="form-group d-flex align-items-center justify-content-between mb-2 pb-1">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="brandMango">
-                                        <label class="custom-control-label" for="brandMango">Mango
-                                            <span class="text-gray-25 font-size-12 font-weight-normal"> (56)</span>
+                                        <label class="custom-control-label" for="brandMango">All
+                                            <span class="text-gray-25 font-size-12 font-weight-normal"> ({{$currentCategory['totalProducts']}})</span>
                                         </label>
                                     </div>
                                 </div>

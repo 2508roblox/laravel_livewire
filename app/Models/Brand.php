@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Brand extends Model
 {
@@ -15,8 +16,21 @@ class Brand extends Model
         'slug',
         'status',
     ];
-    public function products()
+    public function products( )
 {
-    return $this->hasMany(Product::class);
+    return $this->hasMany(Product::class, 'brand_id', 'id');
 }
+public function countProducts($brands, $sub_category_id) {
+       foreach ($brands as $brand) {
+        $totalSubCategoryProducts = 0;
+        //count
+        $productCount = $brand->products->where('sub_category_id', '=', $sub_category_id)->count();
+
+        $brand->brandWithSubCateProductCount = $productCount;
+    }
+    return $brands;
+
+}
+ 
+
 }
