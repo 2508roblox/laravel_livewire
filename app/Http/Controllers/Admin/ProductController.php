@@ -40,8 +40,9 @@ class ProductController extends Controller
 
         $categories = SubCategory::all();
         $sub_categories = SubCategory::all();
+        $brands = Brand::all();
         $colors = Color::all();
-        return view('admin.product.create', compact('sub_categories', 'colors'));
+        return view('admin.product.create', compact('sub_categories', 'colors', 'brands'));
 
     }
 
@@ -54,7 +55,7 @@ class ProductController extends Controller
         "sub_category_id"=> 'required',
         "name"=> 'required|max:255',
         "slug"=> 'required',
-        "brand"=> 'nullable',
+        "brand_id"=> 'nullable',
         "small_description"=> 'required',
         "description"=> 'required',
         "price"=> 'required',
@@ -69,13 +70,16 @@ class ProductController extends Controller
        ]);
 
 
-
     // create
     $validateData['publish_date'] = $validateData['status'] == 'scheduled' ?  $validateData['publish_date'] : date("d/m/Y");
     $validateData['hot'] =  ( $validateData['hot'] ?? false)  ?  '1': '0';
     $sub_category = SubCategory::find($validateData['sub_category_id']);
-   $product =  $sub_category->products()->create($validateData);
 
+    $product =  $sub_category == null
+   ?
+   $sub_category->products()->create($validateData)
+    :
+    Product::create($validateData);
 
  // product_imgs
  if ($request->hasFile('images')) {
@@ -116,7 +120,8 @@ if ($request->colors ?? false) {
     public function edit( $id, Product $product)
     {
 
-        $categories = SubCategory::all();
+        $sub_categories = SubCategory::all();
+        $brands = Brand::all();
         $product = Product::find($id);
         $images = $product->productImages()->get();
 
@@ -129,7 +134,7 @@ if ($request->colors ?? false) {
         $colors = Color::whereDoesntHave('products', function ($query) use ($product) {
             $query->where('product_id', $product->id);
         })->get();
-        return view('admin.product.edit', compact('product', 'sub_categories', 'images', 'colors_quantity', 'colors'));
+        return view('admin.product.edit', compact('product', 'sub_categories', 'images', 'colors_quantity', 'colors', 'brands'));
     }
 
     /**
@@ -139,9 +144,9 @@ if ($request->colors ?? false) {
     {
         $validateData  = $request->validate([
             "sub_category_id"=> 'required',
+            "brand_id"=> 'nullable',
             "name"=> 'required|max:255',
             "slug"=> 'required',
-            "brand"=> 'nullable',
             "small_description"=> 'required',
             "description"=> 'required',
             "price"=> 'required',

@@ -15,10 +15,10 @@
                                         <ol class="breadcrumb breadcrumb-sa-simple">
                                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
                                             <li class="breadcrumb-item"><a href="app-products-list.html">Products</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Edit Product</li>
+                                            <li class="breadcrumb-item active" aria-current="page">Create Product</li>
                                         </ol>
                                     </nav>
-                                    <h1 class="h3 m-0">Edit Product</h1>
+                                    <h1 class="h3 m-0">Create Product</h1>
                                 </div>
                                 <div class="col-auto d-flex"><a href="#"
                                         class="btn btn-secondary me-3">Duplicate</a><button type="submit" href="#"
@@ -307,6 +307,21 @@
                                             <select name="sub_category_id" class="sa-select2 form-select">
                                                 @foreach ($sub_categories as $sub_category)
                                                     <option value="{{$sub_category->id}}">{{ $sub_category->name }}</option>
+                                                @endforeach ()
+
+
+                                            </select>
+                                            <div class="mt-4 mb-n2"><a href="#">Add new category</a></div>
+                                        </div>
+                                    </div>
+                                    <div class="card w-100 mt-5">
+                                        <div class="card-body p-5">
+                                            <div class="mb-5">
+                                                <h2 class="mb-0 fs-exact-18">Brands</h2>
+                                            </div>
+                                            <select name="brand_id" class="sa-select2 form-select">
+                                                @foreach ($brands as $brand)
+                                                    <option value="{{$brand->id}}">{{ $brand->name }}</option>
                                                 @endforeach ()
 
 

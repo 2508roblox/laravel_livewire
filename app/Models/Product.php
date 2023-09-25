@@ -13,6 +13,7 @@ class Product extends Model
     protected $table = 'products';
     protected $fillable = [
         "sub_category_id",
+        "brand_id",
         "name",
         "slug",
         "brand",
@@ -38,7 +39,7 @@ class Product extends Model
     return $this->belongsToMany(Color::class, 'product_colors');
   }
   public function scopeFilter($query, array $filters) {
-    if($filters['filterOptions']  ) {
+    if($filters['filterOptions'] ?? false  ) {
         $query->when($filters['filterOptions'] == 'lowest' ,function($query) {
             $query->orderBy('price', 'DESC');
         });

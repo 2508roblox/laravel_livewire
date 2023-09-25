@@ -56,7 +56,7 @@
                                             </div>
                                             <div class="mb-4"><label for="form-product/description"
                                                     class="form-label">Description</label>
-                                             
+
                                                 <textarea  name="description" rows="" cols="80" required>
                                                     {{$product->description}}
                                                 </textarea>
@@ -304,12 +304,30 @@
                                     <div class="card w-100 mt-5">
                                         <div class="card-body p-5">
                                             <div class="mb-5">
-                                                <h2 class="mb-0 fs-exact-18">Categories</h2>
+                                                <h2 class="mb-0 fs-exact-18">Sub Category</h2>
                                             </div>
-                                            <select name="category_id" class="sa-select2 form-select">
-                                                @foreach ($categories as $cate)
-                                                    <option {{ $cate->id == $product->category_id ? 'checked' : '' }}
+                                            <select name="sub_category_id" class="sa-select2 form-select">
+                                                @foreach ($sub_categories as $cate)
+
+                                                    <option {{ $cate->id == $product->sub_category_id ? 'selected' : '' }}
                                                         value="{{ $cate->id }}">{{ $cate->name }}</option>
+                                                @endforeach ()
+
+
+                                            </select>
+                                            <div class="mt-4 mb-n2"><a href="#">Add new category</a></div>
+                                        </div>
+                                    </div>
+                                    <div class="card w-100 mt-5">
+                                        <div class="card-body p-5">
+                                            <div class="mb-5">
+                                                <h2 class="mb-0 fs-exact-18">Brands</h2>
+                                            </div>
+                                            <select name="brand_id" class="sa-select2 form-select">
+                                                @foreach ($brands as $brand)
+                                                    <option
+                                                    {{ $brand->id == $product->brand_id ? 'selected' : '' }}
+                                                    value="{{$brand->id}}">{{ $brand->name }}</option>
                                                 @endforeach ()
 
 
