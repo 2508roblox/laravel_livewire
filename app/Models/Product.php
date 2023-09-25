@@ -37,5 +37,20 @@ class Product extends Model
   public function getExistColors () {
     return $this->belongsToMany(Color::class, 'product_colors');
   }
+  public function scopeFilter($query, array $filters) {
+    if($filters['filterOptions']  ) {
+        $query->when($filters['filterOptions'] == 'lowest' ,function($query) {
+            $query->orderBy('price', 'DESC');
+        });
+        $query->when($filters['filterOptions'] == 'highest' ,function($query) {
+            $query->orderBy('price', 'ASC');
+        });
+    }
 
+    // if($filters['search'] ?? false) {
+    //     $query->where('title', 'like', '%' . request('search') . '%')
+    //         ->orWhere('description', 'like', '%' . request('search') . '%')
+    //         ->orWhere('tags', 'like', '%' . request('search') . '%');
+    // }
+}
 }

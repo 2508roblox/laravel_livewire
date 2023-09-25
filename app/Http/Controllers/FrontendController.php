@@ -83,13 +83,12 @@ class FrontendController extends Controller
 }
     public function showCategoryProducts(SubCategory $subcategory, $category_slug, $sub_slug)
     {
-
         $category =Category::with(['sub_categories'])
         ->where('slug', $category_slug)
         ->get()[0];
 
         $sub_category = $category->sub_categories->where('slug', $sub_slug)[0] ;
-        $products = $sub_category->products()->get();
+        $products = $sub_category->products()->filter(request(['filterOptions']))->get();
 
         return view('frontend.categoryProduct', compact('sub_category', 'products'));
 

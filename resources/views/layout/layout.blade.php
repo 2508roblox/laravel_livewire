@@ -4,54 +4,11 @@
 
 <head>
     <head>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-        <link rel="stylesheet" href="{{asset('client/vendor/ion-rangeslider/css/ion.rangeSlider.css')}}">
-        <link rel="stylesheet" href="{{asset('client/vendor/bootstrap-select/dist/css/bootstrap-select.min.css')}}">
 
         <!-- CSS Electro Template -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -84,6 +41,8 @@
     <link rel="stylesheet" href="{{asset('client/vendor/slick-carousel/slick/slick.css')}}">
     <link rel="stylesheet" href="{{asset('client/vendor/bootstrap-select/dist/css/bootstrap-select.min.css')}}">
 
+    <link rel="stylesheet" href="{{asset('client/vendor/ion-rangeslider/css/ion.rangeSlider.css')}}">
+    <link rel="stylesheet" href="{{asset('client/vendor/bootstrap-select/dist/css/bootstrap-select.min.css')}}">
     <!-- CSS Electro Template -->
     <link rel="stylesheet" href="{{asset('client/css/theme.css')}}">
 </head>
@@ -136,6 +95,52 @@
 <script src="{{asset('client/js/components/hs.svg-injector.js')}}"></script>
 <script src="{{asset('client/js/components/hs.go-to.js')}}"></script>
 <script src="{{asset('client/js/components/hs.selectpicker.js')}}"></script>
+
+
+
+
+
+
+
+    <!-- JS Implementing Plugins -->
+    <script src="{{asset('client/vendor/ion-rangeslider/js/ion.rangeSlider.min.js')}}"></script>
+
+    <!-- JS Electro -->
+    <script src="{{asset('client/js/components/hs.quantity-counter.js')}}"></script>
+    <script src="{{asset('client/js/components/hs.scroll-nav.js')}}"></script>
+    <script src="{{asset('client/js/components/hs.selectpicker.js')}}"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- JS Plugins Init. -->
 <script>

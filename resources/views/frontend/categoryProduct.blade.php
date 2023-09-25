@@ -469,20 +469,35 @@
                             </ul>
                         </div>
                         <div class="d-flex">
-                            <form method="get">
+                            <form id="formFilterOptions" method="get">
                                 <!-- Select -->
-                                <select
+                                <select id="filterOptions" name="filterOptions"
                                     class="js-select selectpicker dropdown-select max-width-200 max-width-160-sm right-dropdown-0 px-2 px-xl-0"
                                     data-style="btn-sm bg-white font-weight-normal py-2 border text-gray-20 bg-lg-down-transparent border-lg-down-0">
-                                    <option value="one" selected>Default sorting</option>
-                                    <option value="two">Sort by popularity</option>
-                                    <option value="three">Sort by average rating</option>
-                                    <option value="four">Sort by latest</option>
-                                    <option value="five">Sort by price: low to high</option>
-                                    <option value="six">Sort by price: high to low</option>
+                                    <option value="default" selected>Default sorting</option>
+                                    <option value="latest">Sort by latest</option>
+                                    <option value="lowest">Sort by price: low to high</option>
+                                    <option value="highest">Sort by price: high to low</option>
                                 </select>
                                 <!-- End Select -->
                             </form>
+                            <script src="{{ asset('client/vendor/jquery/dist/jquery.min.js') }}"></script>
+
+                            <script>
+                                   $.ajaxSetup({
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    }
+                                });
+                                $(document).ready(function() {
+                                    $('#filterOptions').on('change', function() {
+                                        $('#formFilterOptions').submit()
+                                    });
+                                });
+
+
+
+                            </script>
                             <form method="POST" class="ml-2 d-none d-xl-block">
                                 <!-- Select -->
                                 <select class="js-select selectpicker dropdown-select max-width-120"
@@ -522,7 +537,7 @@
                                                     <h5 class="mb-1 product-item__title"><a
                                                             href="../shop/single-product-fullwidth.html"
                                                             class="text-blue font-weight-bold">@php
-                                                                 echo ucwords($product->name)
+                                                                echo ucwords($product->name);
                                                             @endphp</a>
                                                     </h5>
                                                     <div class="mb-2">
@@ -533,7 +548,7 @@
                                                     </div>
                                                     <div class="flex-center-between mb-1">
                                                         <div class="prodcut-price">
-                                                            <div class="text-gray-100">$685,00</div>
+                                                            <div class="text-gray-100">${{$product->price}}.00</div>
                                                         </div>
                                                         <div class="d-none d-xl-block prodcut-add-cart">
                                                             <a href="../shop/single-product-fullwidth.html"
@@ -576,7 +591,7 @@
                                                     <h5 class="mb-1 product-item__title"><a
                                                             href="../shop/single-product-fullwidth.html"
                                                             class="text-blue font-weight-bold">@php
-                                                                echo ucwords($product->name)
+                                                                echo ucwords($product->name);
                                                             @endphp</a></h5>
                                                     <div class="mb-2">
                                                         <a href="../shop/single-product-fullwidth.html"
@@ -657,9 +672,9 @@
                                                         <h5 class="mb-2 product-item__title"><a
                                                                 href="../shop/single-product-fullwidth.html"
                                                                 class="text-blue font-weight-bold">
-                                                            @php
-                                                                 echo ucwords($product->name)
-                                                            @endphp
+                                                                @php
+                                                                    echo ucwords($product->name);
+                                                                @endphp
                                                             </a></h5>
                                                         <div class="prodcut-price mb-2 d-md-none">
                                                             <div class="text-gray-100">$685,00</div>
@@ -740,9 +755,9 @@
                                                         <h5 class="mb-2 product-item__title"><a
                                                                 href="../shop/single-product-fullwidth.html"
                                                                 class="text-blue font-weight-bold">
-                                                            @php
-                                                                 echo ucwords($product->name)
-                                                            @endphp
+                                                                @php
+                                                                    echo ucwords($product->name);
+                                                                @endphp
                                                             </a></h5>
                                                         <div class="prodcut-price d-md-none">
                                                             <div class="text-gray-100">$685,00</div>
