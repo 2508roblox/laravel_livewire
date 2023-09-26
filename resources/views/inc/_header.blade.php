@@ -47,7 +47,7 @@
                             <!-- End Fullscreen Toggle Button -->
 
                             <!-- Logo -->
-                            <a class="navbar-brand u-header__navbar-brand u-header__navbar-brand-center mx-auto justify-content-center" href="../home/index.html" aria-label="Electro">
+                            <a class="navbar-brand u-header__navbar-brand u-header__navbar-brand-center mx-auto justify-content-center" href="{{route('home')}}" aria-label="Electro">
                                     <svg version="1.1" x="0px" y="0px" width="120px" height="42.52px" viewBox="0 0 175.748 42.52" enable-background="new 0 0 175.748 42.52" style="margin-bottom: 0;">
                                         <ellipse class="ellipse-bg" fill-rule="evenodd" clip-rule="evenodd" fill="#FDD700" cx="170.05" cy="36.341" rx="5.32" ry="5.367"></ellipse>
                                         <path fill-rule="evenodd" clip-rule="evenodd" fill="#333E48" d="M30.514,0.71c-0.034,0.003-0.066,0.008-0.056,0.056
@@ -109,7 +109,7 @@
                                         <div class="js-scrollbar u-sidebar__body">
                                             <div id="headerSidebarContent" class="u-sidebar__content u-header-sidebar__content">
                                                 <!-- Logo -->
-                                                <a class="d-flex ml-0 navbar-brand u-header__navbar-brand u-header__navbar-brand-vertical" href="../home/index.html" aria-label="Electro">
+                                                <a class="d-flex ml-0 navbar-brand u-header__navbar-brand u-header__navbar-brand-vertical" href="{{route('home')}}" aria-label="Electro">
                                                         <svg version="1.1" x="0px" y="0px" width="175.748px" height="42.52px" viewBox="0 0 175.748 42.52" enable-background="new 0 0 175.748 42.52" style="margin-bottom: 0;">
                                                             <ellipse class="ellipse-bg" fill-rule="evenodd" clip-rule="evenodd" fill="#FDD700" cx="170.05" cy="36.341" rx="5.32" ry="5.367"></ellipse>
                                                             <path fill-rule="evenodd" clip-rule="evenodd" fill="#333E48" d="M30.514,0.71c-0.034,0.003-0.066,0.008-0.056,0.056
@@ -163,7 +163,7 @@
                                                         <div id="headerSidebarHomeCollapse" class="collapse" data-parent="#headerSidebarContent">
                                                             <ul id="headerSidebarHomeMenu" class="u-header-collapse__nav-list">
                                                                 <!-- Home - v1 -->
-                                                                <li><a class="u-header-collapse__submenu-nav-link" href="../home/index.html">Home v1</a></li>
+                                                                <li><a class="u-header-collapse__submenu-nav-link" href="{{route('home')}}">Home v1</a></li>
                                                                 <!-- End Home - v1 -->
                                                                 <!-- Home - v2 -->
                                                                 <li><a class="u-header-collapse__submenu-nav-link" href="../home/home-v2.html">Home v2</a></li>

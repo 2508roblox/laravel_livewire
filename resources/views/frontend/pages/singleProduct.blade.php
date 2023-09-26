@@ -10,10 +10,19 @@
             <div class="my-md-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
-                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="../home/index.html">Home</a></li>
-                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="../shop/shop.html">Accessories</a></li>
-                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="../shop/shop.html">Headphones</a></li>
-                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">Ultra Wireless S50 Headphones S50 with Bluetooth</li>
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="{{route('home')}}">Home</a></li>
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="{{route('frontend.category.list', ['category_slug' => $cate_name->slug])}}">@php
+                            echo ucwords($cate_name->name);
+                        @endphp</a></li>
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a  href="{{route('frontend.category.products',  [ 'category_slug' => $cate_name->slug, 'sub_slug' => $sub_cate_name->slug ] )}}">@php
+                            echo ucwords($sub_cate_name->name);
+                        @endphp</a></li>
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">
+
+                            @php
+                            echo ucwords($product->name);
+                        @endphp
+                        </li>
                     </ol>
                 </nav>
             </div>
@@ -28,46 +37,47 @@
                 <div class="col-md-5 mb-4 mb-md-0">
                     <div id="sliderSyncingNav" class="js-slick-carousel u-slick mb-2" data-infinite="true" data-arrows-classes="d-none d-lg-inline-block u-slick__arrow-classic u-slick__arrow-centered--y rounded-circle" data-arrow-left-classes="fas fa-arrow-left u-slick__arrow-classic-inner u-slick__arrow-classic-inner--left ml-lg-2 ml-xl-4"
                         data-arrow-right-classes="fas fa-arrow-right u-slick__arrow-classic-inner u-slick__arrow-classic-inner--right mr-lg-2 mr-xl-4" data-nav-for="#sliderSyncingThumb">
-                        <div class="js-slide">
-                            <img class="img-fluid" src="{{asset('client/img/720X660/img1.jpg')}}" alt="Image Description">
-                        </div>
-                        <div class="js-slide">
-                            <img class="img-fluid" src="{{asset('client/img/720X660/img2.jpg')}}" alt="Image Description">
-                        </div>
-                        <div class="js-slide">
-                            <img class="img-fluid" src="{{asset('client/img/720X660/img3.jpg')}}" alt="Image Description">
-                        </div>
-                        <div class="js-slide">
-                            <img class="img-fluid" src="{{asset('client/img/720X660/img4.jpg')}}" alt="Image Description">
-                        </div>
-                        <div class="js-slide">
-                            <img class="img-fluid" src="{{asset('client/img/720X660/img5.jpg')}}" alt="Image Description">
-                        </div>
+                    @forelse ($images as $image)
+                    <div class="js-slide">
+                        <img style="height:500px; object-fit: contain " class="img-fluid" src="{{asset('storage/'. $image->image)}}" alt="Image Description">
+                    </div>
+                    @empty
+
+                    @endforelse
+
+
+
+
                     </div>
 
                     <div id="sliderSyncingThumb" class="js-slick-carousel u-slick u-slick--slider-syncing u-slick--slider-syncing-size u-slick--gutters-1 u-slick--transform-off" data-infinite="true" data-slides-show="5" data-is-thumbs="true" data-nav-for="#sliderSyncingNav">
+
+                        @forelse ($images as $image)
                         <div class="js-slide" style="cursor: pointer;">
-                            <img class="img-fluid" src="{{asset('client/img/720X660/img1.jpg')}}" alt="Image Description">
+                            <img style="height: 60px; object-fit: contain" class="img-fluid" src="{{asset('storage/'. $image->image)}}" alt="Image Description">
                         </div>
-                        <div class="js-slide" style="cursor: pointer;">
-                            <img class="img-fluid" src="{{asset('client/img/720X660/img2.jpg')}}" alt="Image Description">
-                        </div>
-                        <div class="js-slide" style="cursor: pointer;">
-                            <img class="img-fluid" src="{{asset('client/img/720X660/img3.jpg')}}" alt="Image Description">
-                        </div>
-                        <div class="js-slide" style="cursor: pointer;">
-                            <img class="img-fluid" src="{{asset('client/img/720X660/img4.jpg')}}" alt="Image Description">
-                        </div>
-                        <div class="js-slide" style="cursor: pointer;">
-                            <img class="img-fluid" src="{{asset('client/img/720X660/img5.jpg')}}" alt="Image Description">
-                        </div>
+                    @empty
+
+                    @endforelse
+
+
+
                     </div>
                 </div>
                 <div class="col-md-7 mb-md-6 mb-lg-0">
                     <div class="mb-2">
                         <div class="border-bottom mb-3 pb-md-1 pb-3">
-                            <a href="#" class="font-size-12 text-gray-5 mb-2 d-inline-block">Headphones</a>
-                            <h2 class="font-size-25 text-lh-1dot2">Ultra Wireless S50 Headphones S50 with Bluetooth</h2>
+                            <a href="{{route('frontend.category.products',  [ 'category_slug' => $cate_name->slug, 'sub_slug' => $sub_cate_name->slug ] )}}" class="font-size-12 text-gray-5 mb-2 d-inline-block">
+
+                              @php
+                                    echo ucwords($sub_cate_name->name);
+                                @endphp
+
+                            </a>
+                            <h2 class="font-size-25 text-lh-1dot2">
+                                @php
+                                echo ucwords($product->name);
+                            @endphp</h2>
                             <div class="mb-2">
                                 <a class="d-inline-flex align-items-center small font-size-15 text-lh-1" href="#">
                                     <div class="text-warning mr-2">
@@ -86,35 +96,89 @@
                             </div>
                         </div>
                         <div class="flex-horizontal-center flex-wrap mb-4">
-                            <a href="#" class="text-gray-6 font-size-13 mr-2"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>
-                            <a href="#" class="text-gray-6 font-size-13 ml-2"><i class="ec ec-compare mr-1 font-size-15"></i> Compare</a>
+                            {{-- add wishlidt --}}
+                            <form id="addToWishlistForm" action="{{route('admin.wishlist.store')}}" method="POST">
+                                @csrf
+                                <input hidden type="text" name="wishlistProductId" value="{{$product->id}}">
+                                <p style="cursor: pointer" id="addToWishlist" class="text-gray-6 font-size-13 mr-2 mb-0"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</p>
+
+                            </form>
+                            <form action="{{route('admin.wishlist.store')}}" method="POST">
+                                @csrf
+                                <p style="cursor: pointer" class="text-gray-6 font-size-13 ml-2 mb-0"><i class="ec ec-compare mr-1 font-size-15"></i> Compare</p>
+
+
+                            </form>
+                            <script src="{{ asset('client/vendor/jquery/dist/jquery.min.js') }}"></script>
+                            <script>
+                                $(document).ready(function() {
+                             $('#addToWishlist').on('click', function() {
+                              $('#addToWishlistForm').submit()
+                             });
+                         });
+                             </script>
                         </div>
+
+
                         <div class="mb-2">
                             <ul class="font-size-14 pl-3 ml-1 text-gray-110">
-                                <li>4.5 inch HD Touch Screen (1280 x 720)</li>
-                                <li>Android 4.4 KitKat OS</li>
-                                <li>1.4 GHz Quad Core™ Processor</li>
-                                <li>20 MP Electro and 28 megapixel CMOS rear camera</li>
+                               @php
+                                   echo $product->description
+                               @endphp
+
+
                             </ul>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+                        <p>{{$product->small_description}}.</p>
                         <p><strong>SKU</strong>: FW511948218</p>
+
+                        @if ($colors_quantity)
+                        <p>Out of stock</p>
+                        @endif
                         <div class="mb-4">
                             <div class="d-flex align-items-baseline">
-                                <ins class="font-size-36 text-decoration-none">$1,999.00</ins>
-                                <del class="font-size-20 ml-2 text-gray-6">$2,299.00</del>
+                                <ins class="font-size-36 text-decoration-none text-warning">${{$product->price}}.00</ins>
+
+                                <del class="font-size-20 ml-2 text-gray-6  "> {{$product->promotion_price  ?  '$'. $product->promotion_price. '.00' : '' }}</del>
                             </div>
                         </div>
                         <div class="border-top border-bottom py-3 mb-4">
                             <div class="d-flex align-items-center">
                                 <h6 class="font-size-14 mb-0">Color</h6>
                                 <!-- Select -->
-                                <select class="js-select selectpicker dropdown-select ml-3" data-style="btn-sm bg-white font-weight-normal py-2 border">
-                                        <option value="one" selected>White with Gold</option>
-                                        <option value="two">Red</option>
-                                        <option value="three">Green</option>
-                                        <option value="four">Blue</option>
+                                <div id="colorPreview" class="rounded-circle" style="height: 19px; width: 19px;  margin-left: 1rem"> </div>
+
+                                <select name="colorSelector" id="colorSelector" class="js-select selectpicker dropdown-select ml-3" data-style="btn-sm bg-white font-weight-normal py-2 border">
+                                        @forelse ($colors_quantity as $color)
+
+                                        <option value="{{$color->id}}" >
+
+
+                                            @php
+
+                                            echo ucwords($color->name) . ' ( '. $color->quantity . ') '
+                                        @endphp
+
+                                    </option>
+
+                                        @empty
+
+                                        @endforelse
+
+
+
                                     </select>
+                                    <script src="{{ asset('client/vendor/jquery/dist/jquery.min.js') }}"></script>
+                                    <script>
+                                         var colorsArr = @json($colorsArr); // Convert PHP array to JavaScript object
+                                        $(document).ready(function() {
+                                     $('#colorSelector').on('change', function() {
+                                        console.log(colorsArr[$('#colorSelector').val()])
+                                      $('#colorPreview').css('background-color', '#'+colorsArr[$('#colorSelector').val()])
+                                     });
+                                 });
+                                     </script>
+
                                 <!-- End Select -->
                             </div>
                         </div>
@@ -125,7 +189,7 @@
                                 <div class="border rounded-pill py-2 px-3 border-color-1">
                                     <div class="js-quantity row align-items-center">
                                         <div class="col">
-                                            <input class="js-result form-control h-auto border-0 rounded p-0 shadow-none" type="text" value="1">
+                                            <input id="quantityInput" class="js-result form-control h-auto border-0 rounded p-0 shadow-none" type="text" value="1">
                                         </div>
                                         <div class="col-auto pr-1">
                                             <a class="js-minus btn btn-icon btn-xs btn-outline-secondary rounded-circle border-0" href="javascript:;">
@@ -137,6 +201,17 @@
                                         </div>
                                     </div>
                                 </div>
+                            <script src="{{ asset('client/vendor/jquery/dist/jquery.min.js') }}"></script>
+
+                            <script>
+                                $(document).ready(function() {
+                                    $('.js-minus').on('click', function() {
+                                     console.log($('#quantityInput').val())
+                                    });
+                                });
+
+
+                            </script>
                                 <!-- End Quantity -->
                             </div>
                             <div class="ml-md-3">

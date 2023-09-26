@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\Color;
 use App\Models\Slider;
 use App\Models\Product;
 use App\Models\Category;
@@ -19,7 +20,7 @@ class FrontendController extends Controller
     {
         $sliders = Slider::all();
         $categories = Category::all()->where('status', '=', 'published');
-        $number  = [
+        $number = [
             '1' => 'one',
             '2' => 'two',
             '3' => 'three',
@@ -34,138 +35,165 @@ class FrontendController extends Controller
      * Show the form for creating a new resource.
      */
     public function showCategories($category_slug)
-{
-    $categories = Category::with(['sub_categories.products'])
-    ->where('status', 'published')
-    ->get();
+    {
+        $categories = Category::with(['sub_categories.products'])
+            ->where('status', 'published')
+            ->get();
 
         foreach ($categories as $category) {
-        $totalCategoryProducts = 0;
-        $subCategoriesWithProductCount = [];
+            $totalCategoryProducts = 0;
+            $subCategoriesWithProductCount = [];
 
-        foreach ($category->sub_categories as $subCategory) {
-            $productCount = $subCategory->products->count();
-            $totalCategoryProducts += $productCount;
+            foreach ($category->sub_categories as $subCategory) {
+                $productCount = $subCategory->products->count();
+                $totalCategoryProducts += $productCount;
 
-            $subCategoriesWithProductCount[] = [
-                'subCategory' => $subCategory,
-                'productCount' => $productCount,
-            ];
+                $subCategoriesWithProductCount[] = [
+                    'subCategory' => $subCategory,
+                    'productCount' => $productCount,
+                ];
+            }
+
+            $category->subCategoriesWithProductCount = $subCategoriesWithProductCount;
+            $category->totalProducts = $totalCategoryProducts;
         }
 
-        $category->subCategoriesWithProductCount = $subCategoriesWithProductCount;
-        $category->totalProducts = $totalCategoryProducts;
+        //current category
+        $currentCategory = Category::with(['sub_categories.products'])
+            ->where('status', 'published')
+            ->where('slug', $category_slug)
+            ->get();
 
-    }
+        foreach ($currentCategory as $currentCate) {
+            $totalCategoryProducts = 0;
+            $subCategoriesWithProductCount = [];
 
-    //current category
-    $currentCategory =   Category::with(['sub_categories.products'])
-    ->where('status', 'published')
-    ->where('slug', $category_slug)
-    ->get();
+            foreach ($currentCate->sub_categories as $subCategory) {
+                $productCount = $subCategory->products->count();
+                $totalCategoryProducts += $productCount;
 
-    foreach ($currentCategory as $currentCate) {
-        $totalCategoryProducts = 0;
-        $subCategoriesWithProductCount = [];
-
-        foreach ($currentCate->sub_categories as $subCategory) {
-            $productCount = $subCategory->products->count();
-            $totalCategoryProducts += $productCount;
-
-            $subCategoriesWithProductCount[] = [
-                'subCategory' => $subCategory,
-                'productCount' => $productCount,
-            ];
-        }
-        $currentCate->subCategoriesWithProductCount = $subCategoriesWithProductCount;
+                $subCategoriesWithProductCount[] = [
+                    'subCategory' => $subCategory,
+                    'productCount' => $productCount,
+                ];
+            }
+            $currentCate->subCategoriesWithProductCount = $subCategoriesWithProductCount;
             $currentCate->totalProducts = $totalCategoryProducts;
+        }
+        //current category
+        return view('frontend.categories', compact('categories', 'currentCategory'));
     }
-    //current category
-    return view('frontend.categories', compact('categories', 'currentCategory'));
-}
 
-
-///showCategoryProducts
+    ///showCategoryProducts
     public function showCategoryProducts(SubCategory $subcategory, Brand $brand, $category_slug, $sub_slug)
     {
         $categories = Category::with(['sub_categories.products'])
-    ->where('status', 'published')
-    ->get();
+            ->where('status', 'published')
+            ->get();
 
         foreach ($categories as $category) {
-        $totalCategoryProducts = 0;
-        $subCategoriesWithProductCount = [];
+            $totalCategoryProducts = 0;
+            $subCategoriesWithProductCount = [];
 
-        foreach ($category->sub_categories as $subCategory) {
-            $productCount = $subCategory->products->count();
-            $totalCategoryProducts += $productCount;
+            foreach ($category->sub_categories as $subCategory) {
+                $productCount = $subCategory->products->count();
+                $totalCategoryProducts += $productCount;
 
-            $subCategoriesWithProductCount[] = [
-                'subCategory' => $subCategory,
-                'productCount' => $productCount,
-            ];
+                $subCategoriesWithProductCount[] = [
+                    'subCategory' => $subCategory,
+                    'productCount' => $productCount,
+                ];
+            }
+
+            $category->subCategoriesWithProductCount = $subCategoriesWithProductCount;
+            $category->totalProducts = $totalCategoryProducts;
         }
+        $currentCategory = Category::with(['sub_categories.products'])
+            ->where('status', 'published')
+            ->where('slug', $category_slug)
+            ->get();
 
-        $category->subCategoriesWithProductCount = $subCategoriesWithProductCount;
-        $category->totalProducts = $totalCategoryProducts;
+        foreach ($currentCategory as $currentCate) {
+            $totalCategoryProducts = 0;
+            $subCategoriesWithProductCount = [];
 
-    }
-    $currentCategory =   Category::with(['sub_categories.products'])
-    ->where('status', 'published')
-    ->where('slug', $category_slug)
-    ->get();
+            foreach ($currentCate->sub_categories as $subCategory) {
+                $productCount = $subCategory->products->count();
+                $totalCategoryProducts += $productCount;
 
-    foreach ($currentCategory as $currentCate) {
-        $totalCategoryProducts = 0;
-        $subCategoriesWithProductCount = [];
-
-        foreach ($currentCate->sub_categories as $subCategory) {
-            $productCount = $subCategory->products->count();
-            $totalCategoryProducts += $productCount;
-
-            $subCategoriesWithProductCount[] = [
-                'subCategory' => $subCategory,
-                'productCount' => $productCount,
-            ];
-        }
-        $currentCate->subCategoriesWithProductCount = $subCategoriesWithProductCount;
+                $subCategoriesWithProductCount[] = [
+                    'subCategory' => $subCategory,
+                    'productCount' => $productCount,
+                ];
+            }
+            $currentCate->subCategoriesWithProductCount = $subCategoriesWithProductCount;
             $currentCate->totalProducts = $totalCategoryProducts;
-    }
-    $currentCategory = $currentCategory[0];
+        }
+        $currentCategory = $currentCategory[0];
 
-
-    ////end categories sidebar
-        $category =Category::with(['sub_categories'])
-        ->where('slug', $category_slug)
-        ->get()[0];
-
-
+        ////end categories sidebar
+        $category = Category::with(['sub_categories'])
+            ->where('slug', $category_slug)
+            ->get()[0];
 
         $sub_category = $subcategory->where('slug', $sub_slug)->get()[0];
-        $products = $sub_category->products()->filter(request(['filterOptions', 'brands']))->get();
+        $products = $sub_category
+            ->products()
+            ->filter(request(['filterOptions', 'brands']))
+            ->get();
         foreach ($products as $product) {
-
-            $product->image_url = $product->productImages()->orderBy('id', 'ASC')->first()->image ?? null;
+            $product->image_url =
+                $product
+                    ->productImages()
+                    ->orderBy('id', 'ASC')
+                    ->first()->image ?? null;
         }
-        $brands = Brand::with('products')->get() ;
+        $brands = Brand::with('products')->get();
         $brands = $brand->countProducts($brands, $sub_category->id);
 
         return view('frontend.categoryProduct', compact('sub_category', 'products', 'brands', 'currentCategory', 'categories'));
-
     }
     public function showSingleProduct($product_slug)
     {
-
         $product = Product::where('slug', $product_slug)->first();
         if (!$product) {
             // Xử lý khi không tìm thấy sản phẩm
             abort(404);
         }
         //breadcrumb
-        $sub_cate_name = $product->getSubCate()->get()[0]->name;
+        $sub_cate_name = $product->getSubCate()->get()[0];
 
-        $cate_name = $product->getSubCate()->get()[0]->name;
-       return view('frontend.pages.singleProduct');
+        $cate_name = $product
+            ->getSubCate()
+            ->get()[0]
+            ->getCate()
+            ->get()[0];
+        $images = $product->productImages()->get();
+
+        $colors_quantity =  DB::table('product_colors')->join('colors', 'product_colors.color_id', '=', 'colors.id')
+        ->select('*',  'colors.name as colors_name', 'product_colors.id as product_colors_id' )
+        ->where('product_colors.product_id', '=', $product->id)
+        ->get();
+        $colors = DB::table('colors')->select('*'  )->get();
+        $colorsArr = [];
+        foreach ($colors as $color) {
+            $colorsArr[$color->id] = $color->code;
+        }
+
+        return view(
+            'frontend.pages.singleProduct',
+            compact(
+                'product',
+
+                'sub_cate_name',
+
+                'cate_name',
+
+                'images',
+                'colors_quantity',
+                'colorsArr'
+            ),
+        );
     }
 
     /**
