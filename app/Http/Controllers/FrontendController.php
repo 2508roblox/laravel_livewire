@@ -150,7 +150,6 @@ class FrontendController extends Controller
         }
         $brands = Brand::with('products')->get();
         $brands = $brand->countProducts($brands, $sub_category->id);
-
         return view('frontend.categoryProduct', compact('sub_category', 'products', 'brands', 'currentCategory', 'categories'));
     }
     public function showSingleProduct($product_slug)
@@ -179,19 +178,21 @@ class FrontendController extends Controller
         foreach ($colors as $color) {
             $colorsArr[$color->id] = $color->code;
         }
-
+        $totalQuantity = 0;
+        foreach ($colors_quantity as $color) {
+            # code...
+            $totalQuantity += $color->quantity;
+        }
         return view(
             'frontend.pages.singleProduct',
             compact(
                 'product',
-
                 'sub_cate_name',
-
                 'cate_name',
-
                 'images',
                 'colors_quantity',
-                'colorsArr'
+                'colorsArr',
+                'totalQuantity'
             ),
         );
     }

@@ -151,7 +151,7 @@ Route::controller(WishlistController::class)->group(function () {
     Route::post('/wishlist/create', 'store')->name('admin.wishlist.store');
     Route::get('/slider/{id}/edit', 'edit')->name('admin.slider.edit');
     Route::post('/slider/{id}/edit', 'update')->name('admin.slider.update');
-    Route::delete('/slider/{id}', 'destroy')->name('admin.slider.delete');
+    Route::delete('/wishlist/{id}', 'destroy')->name('admin.wishlist.delete');
 });
 
 ///// Frontend Routing

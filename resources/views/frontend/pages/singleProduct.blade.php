@@ -133,7 +133,10 @@
                         <p><strong>SKU</strong>: FW511948218</p>
 
                         @if ($colors_quantity)
-                        <p>Out of stock</p>
+
+                        <h3>Stock: {{$totalQuantity}}</h3>
+                        @else
+                        <p>Out of Stock</p>
                         @endif
                         <div class="mb-4">
                             <div class="d-flex align-items-baseline">

@@ -22,7 +22,7 @@ class WishlistController extends Controller
             ->leftJoin('product_images', function ($join) {
                 $join->on('products.id', '=', 'product_images.product_id')->whereRaw('product_images.id = (SELECT MIN(id) FROM product_images WHERE product_id = products.id)');
             })
-            ->select('product_images.image', 'products.name as product_name', 'products.price as product_original_price', 'products.promotion_price as  promotion_price', 'products.id as  product_id',
+            ->select('product_images.image','wishlists.id as wishlisst_id', 'products.name as product_name', 'products.price as product_original_price', 'products.promotion_price as  promotion_price', 'products.id as  product_id',
             DB::raw('SUM(product_colors.quantity) as total_quantity'),
             )
             ->groupBy(
@@ -30,6 +30,7 @@ class WishlistController extends Controller
                 'products.name',
                 'products.price',
                 'products.promotion_price',
+                'wishlists.id',
 
 
                 'product_images.image'
@@ -97,12 +98,12 @@ class WishlistController extends Controller
     {
         //
     }
-
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy( $id)
     {
-        //
+        Wishlist::destroy($id);
+       return $id;
     }
 }
