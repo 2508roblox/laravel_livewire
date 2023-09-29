@@ -37,7 +37,6 @@ class WishlistController extends Controller
             )
             ->where('wishlists.user_id', '=', Auth::user()->id)
             ->get();
-
         return view('frontend.pages.wishlist', compact('wishlists'));
     }
 

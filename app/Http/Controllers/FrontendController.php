@@ -170,7 +170,7 @@ class FrontendController extends Controller
         $images = $product->productImages()->get();
 
         $colors_quantity =  DB::table('product_colors')->join('colors', 'product_colors.color_id', '=', 'colors.id')
-        ->select('*',  'colors.name as colors_name', 'product_colors.id as product_colors_id' )
+        ->select('*',  'colors.name as colors_name', 'product_colors.id as product_colors_id', 'quantity as product_color_quantity'  )
         ->where('product_colors.product_id', '=', $product->id)
         ->get();
         $colors = DB::table('colors')->select('*'  )->get();

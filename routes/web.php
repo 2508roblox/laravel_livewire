@@ -5,6 +5,7 @@ use App\Models\ProductColor;
 use App\Livewire\Admin\Brand\Index;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\FrontendController;
@@ -153,11 +154,17 @@ Route::controller(WishlistController::class)->group(function () {
     Route::post('/slider/{id}/edit', 'update')->name('admin.slider.update');
     Route::delete('/wishlist/{id}', 'destroy')->name('admin.wishlist.delete');
 });
-
+Route::controller(CartController::class)->group(function () {
+    Route::get('/cart', 'index')->name('admin.cart.list');
+    Route::post('/cart/add', 'store')->name('admin.wishlist.store');
+    Route::post('/cart/{id}/edit', 'update')->name('admin.cart.update');
+    Route::delete('/cart/{id}', 'destroy')->name('admin.cart.delete');
+});
 ///// Frontend Routing
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 // show all categories and category's sub categories
 Route::get('/category/{category_slug}', [FrontendController::class, 'showCategories'])->name('frontend.category.list');
 Route::get('/category/{category_slug}/{sub_slug}', [FrontendController::class, 'showCategoryProducts'])->name('frontend.category.products');
 Route::get('/{product_slug}', [FrontendController::class, 'showSingleProduct'])->name('frontend.category.show');
+
 
