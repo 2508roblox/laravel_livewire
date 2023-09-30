@@ -317,7 +317,7 @@
                                                                 <!-- End Shop -->
 
                                                                 <!-- Cart -->
-                                                                <li><a class="u-header-collapse__submenu-nav-link" href="../shop/cart.html">Cart</a></li>
+                                                                <li><a class="u-header-collapse__submenu-nav-link" href="{{route('admin.cart.list')}}">Cart</a></li>
                                                                 <!-- End Cart -->
 
                                                                 <!-- Checkout -->
@@ -329,11 +329,11 @@
                                                                 <!-- End My Account -->
 
                                                                 <!-- Track your Order -->
-                                                                <li><a class="u-header-collapse__submenu-nav-link" href="../shop/track-your-order.html">Track your Order</a></li>
+                                                                <li><a class="u-header-collapse__submenu-nav-link" href="{{route('frontend.order.list')}}">Track your Order</a></li>
                                                                 <!-- End Track your Order -->
 
                                                                 <!-- Compare -->
-                                                                <li><a class="u-header-collapse__submenu-nav-link" href="../shop/compare.html">Compare</a></li>
+                                                                <li><a class="u-header-collapse__submenu-nav-link" href="{{route('frontend.order.list')}}">Order</a></li>
                                                                 <!-- End Compare -->
 
                                                                 <!-- wishlist -->
@@ -458,11 +458,13 @@
                                     <!-- End Input -->
                                 </li>
                                 <!-- End Search -->
-                                <li class="col d-none d-xl-block"><a href="../shop/compare.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Compare"><i class="font-size-22 ec ec-compare"></i></a></li>
+                                <li class="col d-none d-xl-block"><a href="{{route('frontend.order.list')}}" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Compare">
+                                <img style="height: 26px; width: 26px" src="{{asset('client/img/order-icon.png')}}"  alt="">
+                                </a></li>
                                 <li class="col d-none d-xl-block"><a href="../shop/wishlist.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Favorites"><i class="font-size-22 ec ec-favorites"></i></a></li>
                                 <li class="col d-xl-none px-2 px-sm-3"><a href="../shop/my-account.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="My Account"><i class="font-size-22 ec ec-user"></i></a></li>
                                 <li class="col pr-xl-0 px-2 px-sm-3">
-                                    <a href="../shop/cart.html" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="Cart">
+                                    <a href="{{route('admin.cart.list')}}" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="Cart">
                                             <i class="font-size-22 ec ec-shopping-bag"></i>
                                             <span class="width-22 height-22 bg-white position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-dark">2</span>
                                             <span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3">$1785.00</span>
@@ -558,11 +560,11 @@
                                             </ul>
                                             <span class="u-header__sub-menu-title">Ecommerce Pages</span>
                                             <ul class="u-header__sub-menu-nav-group">
-                                                <li><a href="../shop/shop.html" class="nav-link u-header__sub-menu-nav-link">Shop</a></li>
-                                                <li><a href="../shop/cart.html" class="nav-link u-header__sub-menu-nav-link">Cart</a></li>
-                                                <li><a href="../shop/checkout.html" class="nav-link u-header__sub-menu-nav-link">Checkout</a></li>
-                                                <li><a href="../shop/my-account.html" class="nav-link u-header__sub-menu-nav-link">My Account</a></li>
-                                                <li><a href="../shop/track-your-order.html" class="nav-link u-header__sub-menu-nav-link">Track your Order</a></li>
+                                                <li><a href="{{route('frontend.order.list')}}" class="nav-link u-header__sub-menu-nav-link">Shop</a></li>
+                                                <li><a href="{{route('frontend.order.list')}}" class="nav-link u-header__sub-menu-nav-link">Cart</a></li>
+                                                <li><a href="{{route('frontend.order.list')}}" class="nav-link u-header__sub-menu-nav-link">Checkout</a></li>
+                                                <li><a href="{{route('frontend.order.list')}}" class="nav-link u-header__sub-menu-nav-link">My Account</a></li>
+                                                <li><a href="{{route('frontend.order.list')}}" class="nav-link u-header__sub-menu-nav-link">Track your Order</a></li>
                                                 <li><a href="../shop/compare.html" class="nav-link u-header__sub-menu-nav-link">Compare</a></li>
                                             </ul>
                                         </div>

@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="mb-6 pt-3">
                     <div class="row align-items-end">
-                        <div class="col" style="background-image: url('https://transvelo.github.io/electro-html/2.0/assets/img/1920X422/img1.jpg'); background-position: center">
+                        <div class="col"  >
                             <!-- Tab Content -->
                             <div class="tab-content">
                                 @php

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\Auth\LoginController;
@@ -20,6 +22,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProductColorController;
 
@@ -46,6 +49,14 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard')
         ->middleware(['auth', 'isAdmin']);
+        Route::controller(AdminOrderController::class)->group(function () {
+            Route::get('/order', 'index')->name('admin.order.list');
+            Route::get('/order/{id}/detail', 'show')->name('admin.order.show');
+            Route::post('/order/add', 'store')->name('admin.order.store');
+            Route::get('/order/{id}/edit', 'update')->name('admin.order.update');
+            Route::put('/order/edit', 'cancle')->name('admin.order.cancle');
+            Route::get('/order/{id}', 'destroy')->name('admin.order.delete');
+        });
     Route::controller(CategoryController::class)->group(function () {
         Route::get('/category', 'index')->name('admin.category.list');
         Route::get('/category/create', 'create')->name('admin.category.create');
@@ -146,6 +157,20 @@ Route::delete('/delete-pcolor', function () {
     return response()->json('Product Delete Updated!', 200);
 });
 
+Route::controller(OrderController::class)->group(function () {
+    Route::get('/order', 'index')->name('frontend.order.list');
+    Route::get('/order/{id}/detail', 'show')->name('frontend.order.show');
+    Route::post('/order/add', 'store')->name('frontend.order.store');
+    Route::put('/order/edit', 'update')->name('frontend.order.update');
+    Route::get('/order/{id}', 'destroy')->name('frontend.order.delete');
+});
+Route::controller(CheckoutController::class)->group(function () {
+    Route::get('/checkout', 'index')->name('admin.checkout');
+    Route::post('/checkout/create', 'store')->name('admin.checkout.store');
+    Route::get('/checkout/{id}/edit', 'edit')->name('admin.checkout.edit');
+    Route::post('/checkout/{id}/edit', 'update')->name('admin.checkout.update');
+    Route::delete('/checkout/{id}', 'destroy')->name('admin.checkout.delete');
+});
 Route::controller(WishlistController::class)->group(function () {
     Route::get('/wishlist', 'index')->name('admin.wishlist.list');
     Route::get('/wishlist/create', 'create')->name('admin.wishlist.create');
@@ -157,9 +182,10 @@ Route::controller(WishlistController::class)->group(function () {
 Route::controller(CartController::class)->group(function () {
     Route::get('/cart', 'index')->name('admin.cart.list');
     Route::post('/cart/add', 'store')->name('admin.wishlist.store');
-    Route::post('/cart/{id}/edit', 'update')->name('admin.cart.update');
-    Route::delete('/cart/{id}', 'destroy')->name('admin.cart.delete');
+    Route::put('/cart/edit', 'update')->name('admin.cart.update');
+    Route::get('/cart/{id}', 'destroy')->name('admin.cart.delete');
 });
+
 ///// Frontend Routing
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 // show all categories and category's sub categories

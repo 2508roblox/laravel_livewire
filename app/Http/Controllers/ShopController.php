@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
 class ShopController extends Controller
@@ -9,9 +12,43 @@ class ShopController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(SubCategory $subcategory)
     {
-       return view('shop.index');
+        $categories = Category::with(['sub_categories.products'])
+            ->where('status', 'published')
+            ->get();
+
+        foreach ($categories as $category) {
+            $totalCategoryProducts = 0;
+            $subCategoriesWithProductCount = [];
+
+            foreach ($category->sub_categories as $subCategory) {
+                $productCount = $subCategory->products->count();
+                $totalCategoryProducts += $productCount;
+
+                $subCategoriesWithProductCount[] = [
+                    'subCategory' => $subCategory,
+                    'productCount' => $productCount,
+                ];
+            }
+
+            $category->subCategoriesWithProductCount = $subCategoriesWithProductCount;
+            $category->totalProducts = $totalCategoryProducts;
+        }
+
+
+        // Tiếp tục xử lý dữ liệu và trả về kết quả
+        $products = Product::join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
+        ->select('products.*', 'sub_categories.name as sub_category_name')
+        ->get();
+
+    foreach ($products as $product) {
+        $product->image_url = $product->productImages()
+            ->orderBy('id', 'ASC')
+            ->first()->image ?? null;
+    }
+
+        return view('shop.index', compact('products', 'categories'));
     }
 
     /**

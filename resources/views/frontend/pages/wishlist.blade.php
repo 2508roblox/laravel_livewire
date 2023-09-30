@@ -73,10 +73,11 @@
                                             </td>
 
                                             <td data-title="Unit Price">
+                                               
                                                 @if ($wishlist->promotion_price)
                                                     <span class="">${{ $wishlist->promotion_price }}.00</span>
                                                 @else
-                                                    <span class="">${{ $wishlist->price }}.00</span>
+                                                    <span class="">${{ $wishlist->product_original_price }}.00</span>
                                                 @endif
 
                                             </td>

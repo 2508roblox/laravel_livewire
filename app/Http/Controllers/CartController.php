@@ -18,14 +18,14 @@ class CartController extends Controller
         $carts = DB::table('carts')
         ->join('products', 'products.id', '=', 'carts.product_id')
         ->join('product_colors', 'product_colors.id', '=', 'carts.product_color_id')
+        ->join('colors', 'colors.id', '=', 'product_colors.color_id')
         ->leftJoin('product_images', function ($join) {
             $join->on('products.id', '=', 'product_images.product_id')
                 ->whereRaw('product_images.id = (SELECT MIN(id) FROM product_images WHERE product_id = products.id)');
         })
-        ->select('products.name as product_name', 'product_images.image as product_image', 'carts.quantity', 'carts.product_color_id', 'products.price', 'products.promotion_price', 'product_colors.quantity as max_color_quantity')
+        ->select('carts.id as cart_id','products.name as product_name', 'product_images.image as product_image', 'colors.code', 'carts.quantity', 'carts.product_color_id', 'products.price', 'products.promotion_price', 'colors.name as color_name','product_colors.quantity as max_color_quantity')
         ->where('carts.user_id', Auth::user()->id)
         ->get();
-
         return view('frontend.pages.cart', compact('carts') );
 
     }
@@ -63,7 +63,7 @@ class CartController extends Controller
                 $existCartQty->update([
                     'quantity' => $existCartQty->quantity + $request->input('quantity')
                 ]);
-                return 'Add success: Product added to cart successfully';
+                return response('Add success: Product added to cart successfully', 200);
             }
         } else {
             $validateData = $request->validate([
@@ -80,7 +80,8 @@ class CartController extends Controller
                 'product_color_id' => $validateData['color_id'],
             ]);
 
-            return 'Add success: Product added to cart successfully';
+            return response('Add success: Product added to cart successfully', 200);
+
         }
     }
 
@@ -103,16 +104,22 @@ class CartController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update( )
     {
-        //
+        $cart_id = request()->cart_id;
+        $qty = request()->quantity;
+        $cart = Cart::find($cart_id);
+        $cart->quantity = $qty;
+        $cart->save();
+        return request()->cart_id;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy( $id)
     {
-        //
+      Cart::destroy($id);
+      return redirect('cart');
     }
 }

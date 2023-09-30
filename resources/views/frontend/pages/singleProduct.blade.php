@@ -278,10 +278,10 @@
                                             var splitValues = id_quantity.split(":");
                                             var color_id = splitValues[0]; // id của bảng productColor
                                             var quantity = $('#quantityInput').val();
-                                            var user = {!! json_encode(auth()->user()->id) !!};
+                                            var user = {!! json_encode(auth()->user() ? auth()->user()->id : null) !!};
                                             var product_id = {!! json_encode($product->id) !!};
-
-                                            $.ajax({
+                                                if (user != null) {
+                                                    $.ajax({
                                                 url: '/cart/add',
                                                 type: 'POST',
                                                 dataType: 'json',
@@ -293,12 +293,15 @@
                                                     "quantity": quantity
                                                 },
                                                 success: function(response) {
-                                                    location.to('/faweg');
+                                                    location.reload();
                                                 },
                                                 error: function(xhr) {
-                                                    // Xử lý lỗi nếu có
+                                                    location.href = "/cart";
+
                                                 }
                                             });
+                                                }
+
                                         });
                                     });
                                 </script>

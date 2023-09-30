@@ -28,6 +28,10 @@ class FrontendController extends Controller
             '5' => 'five',
             '6' => 'six',
         ];
+        $productsLatest = Product::where('status', '=', 'published')
+        ->orderBy('id', 'desc')
+        ->limit(15)
+        ->get();
         return view('home', compact('sliders', 'number', 'categories'));
     }
 
