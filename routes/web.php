@@ -56,6 +56,7 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('/order/{id}/edit', 'update')->name('admin.order.update');
             Route::put('/order/edit', 'cancle')->name('admin.order.cancle');
             Route::get('/order/{id}/generate', 'viewinvoice')->name('admin.invoice.view');
+            Route::get('/order/{id}/mail', 'sendmail')->name('admin.invoice.mail');
             Route::get('/order/{id}/download', 'downloadinvoice')->name('admin.invoice.download');
         });
     Route::controller(CategoryController::class)->group(function () {
