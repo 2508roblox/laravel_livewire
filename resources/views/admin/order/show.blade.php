@@ -19,7 +19,10 @@
 
                         <h1 class="h3 m-0">Order #000{{$order['ID']}}</h1>
                     </div>
-                    <div class="col-auto d-flex"><a href="{{route('admin.order.list')}}" class="btn btn-secondary me-3">Back</a><a href="#" class="btn btn-primary">Edit</a></div>
+
+                    <div class="col-auto d-flex"><a href="{{route('admin.order.list')}}" class="btn btn-secondary me-3">Back</a><a  href="{{route('admin.invoice.view', ['id' => $order['ID']])}}" class="ml-2 btn btn-success">View Invoice</a>
+                        <a style="margin-left: .7rem" href="{{route('admin.invoice.download', ['id' => $order['ID']])}}" class="btn btn-primary">Download Invoice</a>
+                    </div>
                 </div>
             </div>
             <div class="sa-page-meta mb-5">

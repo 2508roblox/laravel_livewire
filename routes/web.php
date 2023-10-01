@@ -55,7 +55,8 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('/order/add', 'store')->name('admin.order.store');
             Route::get('/order/{id}/edit', 'update')->name('admin.order.update');
             Route::put('/order/edit', 'cancle')->name('admin.order.cancle');
-            Route::get('/order/{id}', 'destroy')->name('admin.order.delete');
+            Route::get('/order/{id}/generate', 'viewinvoice')->name('admin.invoice.view');
+            Route::get('/order/{id}/download', 'downloadinvoice')->name('admin.invoice.download');
         });
     Route::controller(CategoryController::class)->group(function () {
         Route::get('/category', 'index')->name('admin.category.list');
