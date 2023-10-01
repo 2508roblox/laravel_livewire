@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Models\Color;
+use App\Models\Order;
 use App\Models\Slider;
 use App\Models\Product;
 use App\Models\Category;
@@ -28,11 +29,18 @@ class FrontendController extends Controller
             '5' => 'five',
             '6' => 'six',
         ];
-        $productsLatest = Product::where('status', '=', 'published')
-        ->orderBy('id', 'desc')
+        $products = Product::join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
+        ->select('products.*', 'sub_categories.name as sub_category_name')
         ->limit(15)
+        ->orderBy('id','desc')
         ->get();
-        return view('home', compact('sliders', 'number', 'categories'));
+
+    foreach ($products as $product) {
+        $product->image_url = $product->productImages()
+            ->orderBy('id', 'ASC')
+            ->first()->image ?? null;
+    }
+        return view('home', compact('sliders', 'number', 'categories', 'products'));
     }
 
     /**
@@ -204,9 +212,28 @@ class FrontendController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function checkpayment(Request $request)
     {
-        //
+        if ($request->vnp_ResponseCode == '24') {
+            $order_id = $request->vnp_TxnRef;
+            $order = Order::find($order_id);
+            $order->status = 'unpaid';
+            $order->save();
+            // chưa thanh toán
+        return redirect('/order')->with('message', 'Paid Cancelled, Please pay now');
+
+       }elseif($request->vnp_ResponseCode == '00'){
+        $order_id = $request->vnp_TxnRef;
+        $order = Order::find($order_id);
+        $order->status = 'paid';
+        $order->save();
+        return redirect('/order')->with('message', 'Paid Successfully, explore new our products');
+
+       }
+
+       else {
+        return redirect('/order');
+       }
     }
 
     /**

@@ -35,7 +35,7 @@
 
                                 if ($order['Status'] =='pending') {
                                    echo 'badge-sa-warning';
-                                }elseif ($order['Status'] =='confirm') {
+                                }elseif ($order['Status'] =='confirm' || $order['Status'] =='paid') {
                                     echo 'badge-sa-success';
 
                                 }else {

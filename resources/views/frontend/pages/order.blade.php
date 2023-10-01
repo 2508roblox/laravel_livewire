@@ -69,15 +69,15 @@
                                     </td>
                                     <td data-title="Stock">
                                         <!-- Stock Status -->
-                                        @if ($item['Status'] =='pending')
+                                        @if ($item['Status'] =='pending' )
                                         <h1 class=" p-2 badge badge-warning text-white">{{ $item['Status'] }}</h1>
 
-                                        @elseif ($item['Status'] =='confirm')
+                                        @elseif ($item['Status'] =='confirm' || $item['Status'] =='paid' )
 
-                                        <h1 class=" p-2 badge badge-warning text-success">{{ $item['Status'] }}</h1>
+                                        <h1 class=" p-2 badge badge-success text-white">{{ $item['Status'] }}</h1>
 
                                         @else
-                                        <h1 class=" p-2 badge badge-warning text-danger">{{ $item['Status'] }}</h1>
+                                        <h1 class=" p-2 badge badge-danger text-white">{{ $item['Status'] }}</h1>
 
                                         @endif
                                         <!-- End Stock Status -->

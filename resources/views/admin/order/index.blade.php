@@ -62,7 +62,7 @@
 
 
 
-                                    @elseif ($item['Status'] =='confirm')
+                                    @elseif ($item['Status'] =='confirm' || $item['Status'] =='paid')
 
                                     <div class="badge badge-sa-success">{{$item['Status']}}</div>
 

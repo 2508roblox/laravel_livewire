@@ -175,8 +175,7 @@ Route::controller(WishlistController::class)->group(function () {
     Route::get('/wishlist', 'index')->name('admin.wishlist.list');
     Route::get('/wishlist/create', 'create')->name('admin.wishlist.create');
     Route::post('/wishlist/create', 'store')->name('admin.wishlist.store');
-    Route::get('/slider/{id}/edit', 'edit')->name('admin.slider.edit');
-    Route::post('/slider/{id}/edit', 'update')->name('admin.slider.update');
+
     Route::delete('/wishlist/{id}', 'destroy')->name('admin.wishlist.delete');
 });
 Route::controller(CartController::class)->group(function () {
@@ -190,6 +189,7 @@ Route::controller(CartController::class)->group(function () {
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 // show all categories and category's sub categories
 Route::get('/category/{category_slug}', [FrontendController::class, 'showCategories'])->name('frontend.category.list');
+Route::get('/checkpayment', [FrontendController::class, 'checkpayment'])->name('frontend.category.checkpayment');
 Route::get('/category/{category_slug}/{sub_slug}', [FrontendController::class, 'showCategoryProducts'])->name('frontend.category.products');
 Route::get('/{product_slug}', [FrontendController::class, 'showSingleProduct'])->name('frontend.category.show');
 

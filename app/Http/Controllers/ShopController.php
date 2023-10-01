@@ -47,8 +47,19 @@ class ShopController extends Controller
             ->orderBy('id', 'ASC')
             ->first()->image ?? null;
     }
+    $rcproducts = Product::join('sub_categories', 'products.sub_category_id', '=', 'sub_categories.id')
+    ->select('products.*', 'sub_categories.name as sub_category_name')
+    ->limit(10)
+    ->orderBy('id', 'DESC')
+    ->get();
 
-        return view('shop.index', compact('products', 'categories'));
+foreach ($products as $product) {
+    $product->image_url = $product->productImages()
+        ->orderBy('id', 'ASC')
+        ->first()->image ?? null;
+}
+
+        return view('shop.index', compact('products', 'categories', 'rcproducts'));
     }
 
     /**

@@ -42,7 +42,7 @@
                                         </div>
                                         <div class="mb-4"><label for="form-slider/description"
                                                 class="form-label">Description</label>
-                                            //
+                                    
                                             <textarea  name="description" rows="" cols="80" required>
                                                 {{$slider->description}}
                                             </textarea>

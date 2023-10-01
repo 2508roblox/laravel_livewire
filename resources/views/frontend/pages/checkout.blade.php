@@ -220,9 +220,7 @@
                                                     class="collapse show border-top border-color-1 border-dotted-top bg-dark-lighter"
                                                     aria-labelledby="basicsHeadingOne" data-parent="#basicsAccordion1">
                                                     <div class="p-4">
-                                                        Make your payment directly into our bank account. Please use your
-                                                        Order ID as the payment reference. Your order will not be shipped
-                                                        until the funds have cleared in our account.
+                                                      <img width="40px" src="{{asset('client/img/vnpay.png')}}" alt="">
                                                     </div>
                                                 </div>
                                             </div>
