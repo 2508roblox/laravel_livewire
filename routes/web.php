@@ -133,7 +133,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 Route::prefix('shop')->group(function () {
     Route::controller(ShopController::class)->group(function () {
-        Route::get('/', 'index');
+        Route::get('/', 'index')->name('fe.shop');
     });
 });
 
