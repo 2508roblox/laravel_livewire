@@ -244,7 +244,7 @@ $totalShippingCost += 0.01 * ($item['product_price'] * $item['quantity']); // Cá
                                 <h2 class="fs-exact-16 mb-0">Contact person</h2><a href="#" class="fs-exact-14">Edit</a></div>
                             <div class="card-body pt-4 fs-exact-14">
                                 <div>{{$order['Name']}}</div>
-                                <div class="mt-1"><a href="#">moore@example.com</a></div>
+                                <div class="mt-1"><a href="#"> {{$order_data->email}}</a></div>
                                 <div class="text-muted mt-1">+98 {{$order_data->phone}}</div>
                             </div>
                         </div>

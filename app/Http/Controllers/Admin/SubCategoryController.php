@@ -35,10 +35,16 @@ class SubCategoryController  extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'slug' => 'required',
+            'image' => 'nullable',
             'category_id' => 'required',
             'status' => 'nullable',
         ]);
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('images','public');
+            $validatedData['image'] = $path;
 
+
+        }
         $validatedData['status'] = $validatedData['status'] == 'published' ? '1' : '0';
         $category = Category::find($validatedData['category_id']);
         $category->sub_categories()->create($validatedData);
@@ -72,11 +78,17 @@ class SubCategoryController  extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'slug' => 'required',
+            'image' => 'nullable',
             'category_id' => 'required',
 
             'status' => 'nullable',
         ]);
 
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('images','public');
+            $validatedData['image'] = $path;
+
+            }
         $validatedData['status'] = $validatedData['status'] == 'published' ? '1' : '0';
 
         SubCategory::find($id)->update($validatedData);

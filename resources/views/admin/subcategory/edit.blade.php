@@ -1,7 +1,7 @@
 @extends('layout.admin')
 @section('content')
 <div id="top" class="sa-app__body">
-    <form id="form" method="POST" action="{{route('admin.subcategory.update', ['id' => $subcategory->id])}}">
+    <form id="form" method="POST" action="{{route('admin.subcategory.update', ['id' => $subcategory->id])}}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="mx-sm-2 px-2 px-sm-3 px-xxl-4 pb-6">
@@ -53,6 +53,43 @@
                                         </div>
                                         <div id="form-subcategory/slug-help" class="form-text">Unique human-readable
                                             subcategory identifier. No longer than 255 characters.</div>
+                                    </div>
+                                    <div class="card w-100 mt-5">
+                                        <div class="card-body p-5">
+                                            <div class="mb-5">
+                                                <h2 class="mb-0 fs-exact-18">Image</h2>
+                                            </div>
+                                            <label for="cateImg">
+                                                <div class="border p-4 d-flex justify-content-center">
+                                                    <div class="max-w-20x"><img id="img_preview"
+                                                            src="{{ $subcategory->image ? asset('storage/' . $subcategory->image) : asset('admin/images/products/product-7-320x320.jpg') }}"
+                                                            class="w-100 h-auto" width="320" height="320"
+                                                            alt="" /></div>
+                                                </div>
+
+                                            </label>
+
+                                            <input hidden id="cateImg" type="file" name="image">
+                                            @error('image')
+                                                {{ $message }}
+                                            @enderror
+                                            <div class="mt-4 mb-n2"><a href="#" class="me-3 pe-2">Replace
+                                                    image</a><a href="#" class="text-danger me-3 pe-2">Remove
+                                                    image</a></div>
+                                            <script>
+                                                document.getElementById('cateImg').addEventListener('change', function(e) {
+                                                    var output = document.getElementById('img_preview');
+                                                    output.src = URL.createObjectURL(e.target.files[0]);
+                                                    output.onload = function() {
+                                                        URL.revokeObjectURL(output.src) // free memory
+                                                    }
+
+                                                })
+                                                document.getElementById('submit_button').addEventListener('click', function(e) {
+                                                    document.getElementById('form').submit()
+                                                })
+                                            </script>
+                                        </div>
                                     </div>
 
                                 </div>

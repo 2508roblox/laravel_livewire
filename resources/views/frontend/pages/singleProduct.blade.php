@@ -106,8 +106,20 @@
                                     <a href="#" class="max-width-150 ml-n2 mb-2 mb-md-0 d-block"><img
                                             class="img-fluid" src="{{ asset('client/img/200X60/img1.png') }}"
                                             alt="Image Description"></a>
-                                    <div class="ml-md-3 text-gray-9 font-size-14">Availability: <span
-                                            class="text-green font-weight-bold">26 in stock</span></div>
+                                    <div class="ml-md-3 text-gray-9 font-size-14">Availability:
+
+                                        @if ($colors_quantity)
+                                        <span
+                                        class="text-green font-weight-bold">{{ $totalQuantity }} in stock</span>
+
+                                    @else
+                                    <span
+                                    class="text-red font-weight-bold">Out of Stock</span>
+                                        
+                                    @endif
+
+
+                                        </div>
                                 </div>
                             </div>
                             <div class="flex-horizontal-center flex-wrap mb-4">
@@ -150,11 +162,7 @@
                             <p>{{ $product->small_description }}.</p>
                             <p><strong>SKU</strong>: FW511948218</p>
 
-                            @if ($colors_quantity)
-                                <h3>Stock: {{ $totalQuantity }}</h3>
-                            @else
-                                <p>Out of Stock</p>
-                            @endif
+
                             <div class="mb-4">
                                 <div class="d-flex align-items-baseline">
                                     <ins
@@ -169,14 +177,16 @@
                                     <h6 class="font-size-14 mb-0">Color</h6>
                                     <!-- Select -->
                                     <div id="colorPreview" class="rounded-circle"
-                                        style="height: 19px; width: 19px;  margin-left: 1rem"> </div>
+                                        style="height: 19px; width: 19px;  margin-left: 1rem; background: #{{$colors_quantity[0]->code}} "> </div>
+
 
                                     <select name="colorSelector" id="colorSelector"
                                         class="js-select selectpicker dropdown-select ml-3"
                                         data-style="btn-sm bg-white font-weight-normal py-2 border">
                                         @foreach ($colors_quantity as $color)
-                                            <option value="{{ $color->product_colors_id }}:{{ $color->product_color_quantity }}">
+                                            <option style="color: #{{$color->code}}" value="{{ $color->product_colors_id }}:{{ $color->product_color_quantity }}:{{ $color->color_id }}">
                                                 {{ $color->name }} ({{ $color->product_color_quantity }})
+
                                             </option>
                                         @endforeach
                                     </select>
@@ -185,8 +195,9 @@
                                         var colorsArr = @json($colorsArr); // Convert PHP array to JavaScript object
                                         $(document).ready(function() {
                                             $('#colorSelector').on('change', function() {
-                                                console.log(colorsArr[$('#colorSelector').val()])
-                                                $('#colorPreview').css('background-color', '#' + colorsArr[$('#colorSelector').val()])
+                                                var splitValues =  $('#colorSelector').val().split(":");
+                                                console.log(splitValues)
+                                                $('#colorPreview').css('background-color', '#' + colorsArr[splitValues[2]])
                                             });
                                         });
                                     </script>

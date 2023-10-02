@@ -133,7 +133,12 @@
                                 <div class="product-item mx-1 remove-divider">
                                     <div class="product-item__outer  " >
                                         <div class="product-item__inner bg-white px-wd-3 p-2 p-md-3" style="height: 330px">
-                                            <div class="product-item__body pb-xl-2">
+                                            <div class="product-item__body pb-xl-2" style="
+                                            display: flex;
+                                            flex-direction: column;
+                                            justify-content: space-between;
+                                            height: 288px;
+                                        ">
                                                 <div class="mb-2"><a
                                                         href="{{ route('frontend.category.show', ['product_slug' => $product->slug]) }}"
                                                         class="font-size-12 text-gray-5">{{$product->sub_category_name}}</a></div>

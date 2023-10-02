@@ -150,7 +150,7 @@
                         <table class="sa-datatables-init" data-order="[[ 1, &quot;asc&quot; ]]" data-sa-search-input="#table-search">
                             <thead>
                                 <tr>
-                                    <th class="w-min" data-orderable="false"><input type="checkbox" class="form-check-input m-0 fs-exact-16 d-block" aria-label="..." /></th>
+                                    <th class="min-w-15x">Image</th>
                                     <th class="min-w-15x">Name</th>
                                     <th class="min-w-15x">Parent Category</th>
                                     <th>Items</th>
@@ -160,8 +160,15 @@
                             </thead>
                             <tbody>
                                 @forelse ($subcategories as  $subcategory)
+
+
+
+
                                 <tr>
-                                    <td><input type="checkbox" class="form-check-input m-0 fs-exact-16 d-block" aria-label="..." /></td>
+                                    <td>
+                                        <img width="100px" height="100px" src="{{asset('storage/'.$subcategory->image)}}" alt="">
+                                    </td>
+
                                     <td><a href="app-brand.html" class="text-reset">{{$subcategory->name}}</a></td>
                                     <td><a href="app-brand.html" class="text-reset">{{$subcategory->category_id}}</a></td>
                                     <td>3</td>

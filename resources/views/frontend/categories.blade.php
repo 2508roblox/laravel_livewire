@@ -213,14 +213,17 @@
                     </div>
                     <ul class="row list-unstyled products-group no-gutters mb-6">
                         @forelse ($currentCategory[0]->sub_categories as $item)
-                            <li class="col-6 col-md-2gdot4 product-item">
+                            <li class="col-6 col-md-2gdot4 product-item" >
                                 <div class="product-item__outer  " style="height: 214px;">
                                     <div class="product-item__inner px-xl-4 p-3">
                                         <div class="product-item__body pb-xl-2">
                                             <div class="mb-2">
                                                 <a href="{{ route('frontend.category.products', ['category_slug' => $currentCategory[0]->slug, 'sub_slug' => $item->slug]) }}"
                                                     class="d-block text-center"><img class="img-fluid"
-                                                        src="{{ asset('client/img/300X300/img8.jpg') }}"
+                                                    style="
+                                                    height: 200px;
+                                                    object-fit: contain;
+                                                "  src="{{ $item->image ? asset('storage/' . $item->image)   : asset('client/img/300X300/img8.jpg')}}"
                                                         alt="Image Description"></a>
                                             </div>
                                             <h5 class="text-center mb-1 product-item__title"><a

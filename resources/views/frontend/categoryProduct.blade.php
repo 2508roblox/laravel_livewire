@@ -500,17 +500,23 @@
                                     <li class="col-6 col-md-3 col-wd-2gdot4 product-item remove-divider">
                                         <div class="product-item__outer h-100">
                                             <div class="product-item__inner px-xl-4 p-3">
-                                                <div class="product-item__body pb-xl-2">
+                                                <div class="product-item__body pb-xl-2"  style="
+                                                display: flex;
+                                                flex-direction: column;
+                                                justify-content: space-between;
+                                                height: 288px;
+                                            ">
                                                     <div class="mb-2"><a
                                                             href="{{ route('frontend.category.show', ['product_slug' => $product->slug]) }}"
                                                             class="font-size-12 text-gray-5">{{ $sub_category->name }}</a>
+                                                            <h5 class="mb-1 product-item__title"><a
+                                                                href="{{ route('frontend.category.show', ['product_slug' => $product->slug]) }}"
+                                                                class="text-blue font-weight-bold">@php
+                                                                    echo ucwords($product->name);
+                                                                @endphp</a>
+                                                        </h5>
                                                     </div>
-                                                    <h5 class="mb-1 product-item__title"><a
-                                                            href="{{ route('frontend.category.show', ['product_slug' => $product->slug]) }}"
-                                                            class="text-blue font-weight-bold">@php
-                                                                echo ucwords($product->name);
-                                                            @endphp</a>
-                                                    </h5>
+
                                                     <div class="mb-2">
                                                         <a href="{{ route('frontend.category.show', ['product_slug' => $product->slug]) }}"
                                                             class="d-block text-center"><img class="img-fluid"
